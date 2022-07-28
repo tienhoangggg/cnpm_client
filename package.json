@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "test": "react-scripts test",
+    "test": "echo \"No test specified\"",
     "start": "react-scripts start"
   },
   "eslintConfig": {
