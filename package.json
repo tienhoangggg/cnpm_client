@@ -28,6 +28,7 @@
   },
   "scripts": {
     "test": "echo \"No test specified\"",
+    "build": "react-scripts build",
     "start": "react-scripts start"
   },
   "eslintConfig": {
