@@ -23,9 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install -g npm@latest
-          npm i react-comments-section --legacy-peer-deps
-          npm audit fix
+          npm install --force
           npm run build --if-present
           npm run test --if-present
 
