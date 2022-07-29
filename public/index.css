@@ -1,8 +1,0 @@
-#root{
-    align-items: center;
-    justify-content: center;
-    background: rgb(105,3,101);
-    background: linear-gradient(45deg, rgba(105,3,101,1) 0%, rgba(3,3,50,1) 50%, rgba(29,32,149,1) 100%);
-    background-repeat: no-repeat;
-    height: 100vh;
-}
