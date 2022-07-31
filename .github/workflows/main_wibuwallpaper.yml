@@ -57,4 +57,4 @@ jobs:
           app-name: 'wibuwallpaper'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_74339080C20C460182F92227524581B1 }}
-          package: .
+          package: release.zip
