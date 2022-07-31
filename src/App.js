@@ -12,6 +12,7 @@ import AboutPage from "./pages/about/about";
 import ShowCategory from "./pages/showCategory/showCategory";
 import LeaderBoard from "./pages/leaderBoard/leaderBoard";
 import ResultSearch from "./pages/resultSearch/resultSearch";
+import AdminPage from "./pages/AdminPage/AdminPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import{toast, ToastContainer} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
@@ -33,6 +34,7 @@ function App() {
           <Route path="/showimageforcategory" element={<ShowImageForCategory/>}/>
           <Route path="/about" element={<AboutPage />}/>
           <Route path="/resultSearch" element={<ResultSearch />}/>
+          <Route path="/adminpage" element={<AdminPage />}/>
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>

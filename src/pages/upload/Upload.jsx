@@ -1,76 +1,93 @@
 import axios from 'axios';
-import './upload.css'
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import setCookie from "../../hooks/setCookie";
-import getCookie from "../../hooks/getCookie";
-import removeCookie from "../../hooks/removeCookie";
+import React from "react";
 import FooterWibu from '../../components/FooterWibu';
+import Select from 'react-select';
 import NavbarWibu from "../../components/NavbarWibu";
-import CheckBoxTag from '../../components/CheckBoxTag';
-class Upload extends Component {
-  state = {
-    selectedFile: null
-  };
-  onFileChange = event => {
-    this.setState({ selectedFile: event.target.files[0] });
-  };
+import { useEffect, useState } from 'react';
+const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
-
-  onFileUpload = () => {
-    const formData = new FormData();
-    formData.append(
-      'image',
-      this.state.selectedFile,
-      this.state.selectedFile.name
-    );
-    console.log(this.state.selectedFile);
-    axios.post("api/uploadfile", formData);
-  };
-
-
-  fileData = () => {
-    if (this.state.selectedFile) {
-      return (
-        <div>
-          <h2 style={{ color: 'yellow' }}>File details</h2>
-
-          <p style={{ color: 'yellow' }}>File Name: {this.state.selectedFile.name}</p>
-          <p style={{ color: 'yellow' }}>File Type: {this.state.selectedFile.type}</p>
-
-        </div>
-      );
-    } else {
-      return (
-        <div style={{ color: 'yellow', textAlign: 'center' }}>
-          Please choose your file before tap the upload button
-          <br />
-          <br />
-        </div>
-      );
+function Upload() {
+  const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
+  const [category, setCategory] = useState("")
+  const changeHandler = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.match(imageMimeType)) {
+      alert("Image mime type is not valid");
+      return;
     }
-  };
-
-  render() {
-    return (
-      <div>
-        <NavbarWibu />
-        <div className="row justify-content-center" id="featuredText">
-          Upload your wonderful wallpaper now!
-        </div>
-        <div className='field'>
-          <input type="file" onChange={this.onFileChange} />
-          <button onClick={this.onFileUpload}>
-            Upload!
-          </button>
-        </div>
-        {this.fileData()}
-        <CheckBoxTag />
-        <div className="fixed-bottom">
-          <FooterWibu />
-        </div>
-      </div>
-    );
+    setFile(file);
   }
+  useEffect(() => {
+    let fileReader, isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result)
+        }
+      }
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    }
+
+  }, [file]);
+
+	const option = [
+		{
+			value: 'anime', label: 'Anime'
+		},
+		{
+			value: 'girl anime', label: 'Girl Anime'
+		},
+	]
+
+	const handleTag = () => {
+		<Select category={option} />
+	}
+	var website = 'success';
+  const handleSubmission = () => {
+	console.log(website)
+	const formData = new FormData();
+
+	formData.append(
+		'File',
+		file,
+		file.name,
+		category
+	);
+	axios.post("./upload", formData);
+}
+  return (
+    <>
+	<NavbarWibu/>
+      <form>
+        <p>
+          <label htmlFor='image'> Browse images  </label>
+          <input
+            type="file"
+            id='image'
+            accept='.png, .jpg, .jpeg'
+            onChange={changeHandler}
+          />
+        </p>
+        <p>
+		<button onClick={handleSubmission}>Submit</button>
+        </p>
+      </form>
+      {fileDataURL ?
+        <p className="img-preview-wrapper">
+          {
+            <img src={fileDataURL} alt="preview" />
+          }
+        </p> : null}
+    </>
+  );
 }
 export default Upload;
