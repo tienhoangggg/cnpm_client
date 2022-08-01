@@ -5,3 +5,42 @@
     margin: 30px 0 40px;
   }
 
+  .field {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 30px 0 40px;
+  }
+
+  .uploadZone
+  {
+    max-width: 500px;
+    height: 500px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Quicksand',sans-serif;
+    font-size: 500;
+    cursor: pointer;
+    color:#cccccc;
+    border: 4px dashed #009584;
+    border-radius: 10px;
+  }
+
+  .img-preview-wrapper
+  {
+    width: 500px;
+    height: 500px;
+    padding: 25px;
+    color:#cccccc;
+  }
+
+#imgUpload{
+  max-width: 25rem;
+  max-height: 25rem;
+}
+
+
+

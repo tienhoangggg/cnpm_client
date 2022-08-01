@@ -1,26 +1,29 @@
 import axios from 'axios';
 import React from "react";
+import "./upload.css"
+import {useDropzone} from 'react-dropzone'
 import FooterWibu from '../../components/FooterWibu';
 import Select from 'react-select';
 import NavbarWibu from "../../components/NavbarWibu";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
+
 function Upload() {
-  const [file, setFile] = useState(null);
+  const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [category, setCategory] = useState("")
   const changeHandler = (e) => {
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
+    const afile = e.target.files[0];
+    if (!afile.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
       return;
     }
-    setFile(file);
+    setFile(afile);
   }
   useEffect(() => {
     let fileReader, isCancel = false;
-    if (file) {
+    if (afile) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
         const { result } = e.target;
@@ -28,7 +31,7 @@ function Upload() {
           setFileDataURL(result)
         }
       }
-      fileReader.readAsDataURL(file);
+      fileReader.readAsDataURL(afile);
     }
     return () => {
       isCancel = true;
@@ -37,56 +40,71 @@ function Upload() {
       }
     }
 
-  }, [file]);
+  }, [afile]);
 
-	const option = [
-		{
-			value: 'anime', label: 'Anime'
-		},
-		{
-			value: 'girl anime', label: 'Girl Anime'
-		},
-	]
+  const option = [
+    {
+      value: 'anime', label: 'Anime'
+    },
+    {
+      value: 'girl anime', label: 'Girl Anime'
+    },
+  ]
 
-	const handleTag = () => {
-		<Select category={option} />
-	}
-	var website = 'success';
+  const handleTag = () => {
+    <Select category={option} />
+  }
+  var website = 'success';
   const handleSubmission = () => {
-	console.log(website)
-	const formData = new FormData();
+    console.log(website)
+    const formData = new FormData();
 
-	formData.append(
-		'File',
-		file,
-		file.name,
-		category
-	);
-	axios.post("./upload", formData);
-}
+    formData.append(
+      'File',
+      afile,
+      afile.name,
+      category
+    );
+    axios.post("./upload", formData);
+    window.location.reload(false);
+  }
+  const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
+  function ShowSquare(props) {
+    const fileDataURL = props.urlimage;
+    if (fileDataURL&& afile) {
+      return (
+        <div className="img-preview-wrapper">
+          {
+            <img
+              src={fileDataURL} alt="preview" id="imgUpload" />
+          }
+            <div className='submit-button'>
+            <button onClick={(e)=>setFile(e.target.value=null)}>Cancel</button>
+            <button onClick={handleSubmission} >Submit</button>
+            </div>
+      
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <div  className='uploadZone' >
+            <input
+              type="file"
+              id='image'
+              accept='.png, .jpg, .jpeg'
+              onChange={changeHandler}
+
+            />
+          </div>
+
+        </>);
+    }
+  }
   return (
     <>
-	<NavbarWibu/>
-      <form>
-        <p>
-          <label htmlFor='image'> Browse images  </label>
-          <input
-            type="file"
-            id='image'
-            accept='.png, .jpg, .jpeg'
-            onChange={changeHandler}
-          />
-        </p>
-        <p>
-		<button onClick={handleSubmission}>Submit</button>
-        </p>
-      </form>
-      {fileDataURL ?
-        <p className="img-preview-wrapper">
-          {
-            <img src={fileDataURL} alt="preview" />
-          }
-        </p> : null}
+      <NavbarWibu />
+      <ShowSquare urlimage={fileDataURL} />
     </>
   );
 }
