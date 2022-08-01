@@ -24,7 +24,6 @@ function Profile() {
                                     </div>
                                     <div class="ms-3" style={{ marginTop: "130px" }}>
                                         <h5>Alex</h5>
-                                        <p>New York</p>
                                     </div>
                                 </div>
                                 <div class="p-4 text-black" style={{ backgroundColor: "#f8f9fa" }}>
@@ -35,23 +34,15 @@ function Profile() {
                                         </div>
                                         <div class="px-3">
                                             <p class="mb-1 h5">1026</p>
-                                            <p class="small text-muted mb-0">Followers</p>
+                                            <p class="small text-muted mb-0">Likes</p>
                                         </div>
                                         <div>
                                             <p class="mb-1 h5">478</p>
-                                            <p class="small text-muted mb-0">Following</p>
+                                            <p class="small text-muted mb-0">Stars</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body p-4 text-black">
-                                    <div class="mb-5">
-                                        <p class="lead fw-normal mb-1">About</p>
-                                        <div class="p-4" style={{ backgroundColor: "#f8f9fa" }}>
-                                            <p class="font-italic mb-1">Photographer</p>
-                                            <p class="font-italic mb-1">Lives in New York</p>
-                                            <p class="font-italic mb-0">Design graphic</p>
-                                        </div>
-                                    </div>
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <p class="lead fw-normal mb-0">Recent photos</p>
                                         <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
