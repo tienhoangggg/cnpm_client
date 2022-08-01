@@ -30,30 +30,18 @@ function AdminPage() {
     <>
     <NavbarWibu />
     <Container>
-      <Row id="rowAdmin" className="justify-content-center">
-        <Col id="colAdmin">
-          <h3>&nbsp;&nbsp;Image link</h3>
-          <div id="divCol">
-          {imgID.map((linkT, index) =><><text>{index+1}/ {url+linkT}</text><br /></>)}
-          </div>
-        </Col>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <Col id="colAdmin">
-        <h3>&nbsp;&nbsp;Number of reports</h3>
-        <div id="divCol">
-        {numberOfReport.map((n, index) =><><text>{n}</text><br /></>)}
-        </div>
-        </Col>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <Col id="colAdmin">
-          <h3>&nbsp;&nbsp;Delete command</h3>
-          <div id="divCol">
-          {imgID.map((linkT, index) =><><Button id="btnS">
-            Delete {index+1}
-          </Button><br /></>)}
-          </div>
-        </Col>
-      </Row>
+    <Row>
+      <Col id="divCol">Link</Col>
+      <Col id="divCol">Number of reports</Col>
+      <Col id="divCol">Delete command</Col>
+    </Row>
+    {imgID.map((linkT, index) => <>
+    <Row>
+      <Col id="divCol">{url+linkT}</Col>
+      <Col id="divCol">{numberOfReport[index]}</Col>
+      <Col id="divCol"><Button id="btnS">Delete</Button></Col>
+    </Row>
+    </>)}
     </Container>
     <FooterWibu />
     </>

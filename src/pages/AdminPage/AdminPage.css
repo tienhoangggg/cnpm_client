@@ -7,7 +7,11 @@
     justify-content: space-between;
 }
 #divCol{
-    text-align: center;
+    width: 30%;
     color: white;
-    font-size: 1.5rem;
+    font-size: auto;
+    overflow: auto;
+    padding: 1rem;
+    border: 2px solid white;
+    text-align: center;
 }
