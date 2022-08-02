@@ -1,1 +1,2 @@
 https://wibuwallpaper.azurewebsites.net/home
+https://cnpmapi.azurewebsites.net
