@@ -10,9 +10,7 @@ import FooterWibu from '../../components/FooterWibu';
 import NavbarWibu from "../../components/NavbarWibu";
 import dataTest from "./testData";
 function homepage() {
-  console.log(dataTest);
   let url = `${window.location.origin.toString()}/showImage/`;
-  console.log(url+dataTest[0]);
   return (
     <>
       <NavbarWibu />

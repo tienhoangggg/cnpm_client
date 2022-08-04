@@ -2,9 +2,15 @@ import { Button, Navbar, ListGroup, Dropdown, Carousel } from "react-bootstrap";
 import logo from "../../assets/images/logo.png";
 import welcome from "../../assets/images/welcome.png";
 import "./Profile.css";
-import { Link } from "react-router-dom";
 import NavbarWibu from "../../components/NavbarWibu";
-function Profile() {
+import getCookie from "../../hooks/getCookie";
+import { Link, useParams } from "react-router-dom";
+import { handleGetProfileApi } from "../../services/userServices";
+async function Profile() {
+    let usernameC = getCookie('usr');
+    let { userID } = useParams();
+    let data = await handleGetProfileApi(userID)
+    let url = `${window.location.origin.toString()}/showImage/`;
     return (
         <>
             <NavbarWibu />
@@ -23,21 +29,21 @@ function Profile() {
                                         </button>
                                     </div>
                                     <div class="ms-3" style={{ marginTop: "130px" }}>
-                                        <h5>Alex</h5>
+                                        <h5>{usernameC}</h5>
                                     </div>
                                 </div>
                                 <div class="p-4 text-black" style={{ backgroundColor: "#f8f9fa" }}>
                                     <div class="d-flex justify-content-end text-center py-1">
                                         <div>
-                                            <p class="mb-1 h5">253</p>
+                                            <p class="mb-1 h5">{data.numOfImage}</p>
                                             <p class="small text-muted mb-0">Photos</p>
                                         </div>
                                         <div class="px-3">
-                                            <p class="mb-1 h5">1026</p>
+                                            <p class="mb-1 h5">{data.like}</p>
                                             <p class="small text-muted mb-0">Likes</p>
                                         </div>
                                         <div>
-                                            <p class="mb-1 h5">478</p>
+                                            <p class="mb-1 h5">{data.star}</p>
                                             <p class="small text-muted mb-0">Stars</p>
                                         </div>
                                     </div>
@@ -47,22 +53,9 @@ function Profile() {
                                         <p class="lead fw-normal mb-0">Recent photos</p>
                                         <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
                                     </div>
-                                    <div class="row g-2">
-                                        <div class="col mb-2">
-                                            <img src="https://drive.google.com/file/d/1a5fg9ku_cWGrpUueTVwfzEJtkiaXhpP6/view?usp=sharing" alt="image 1" class="w-100 rounded-3" />
-                                        </div>
-                                        <div class="col mb-2">
-                                            <img src="https://drive.google.com/file/d/1NT11HiAJdC7ecHHyfTLr1sWfs91m2F0V/view?usp=sharing" alt="image 1" class="w-100 rounded-3" />
-                                        </div>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col">
-                                            <img src="https://drive.google.com/file/d/1C8yNe0Z19UHUmXSu-Qiiol3UQ0nvTSBI/view?usp=sharing" alt="image 1" class="w-100 rounded-3" />
-                                        </div>
-                                        <div class="col">
-                                            <img src="https://drive.google.com/file/d/1f8Uf5DvzkNvZFqDc18jJyJn5Z7EGK8de/view?usp=sharing" alt="image 1" class="w-100 rounded-3" />
-                                        </div>
-                                    </div>
+                                    {data.image.map((linkT, index) => <>
+                                        {data.image.map((linkT, index) =><a href={url+data.image[index]}><div><img src={'https://drive.google.com/uc?export=view&id='+data.image[index]} id="anhHomePage"/></div></a>)}
+                                    </>)}
                                 </div>
                             </div>
                         </div>

@@ -28,12 +28,12 @@ function App() {
           <Route path="/verify/:token" element={<Verify />}/>
           <Route path="/showImage/:imgID" element={<ShowImage />}/>
           <Route path="/upload" element={<Upload />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile/:usrID" element={<Profile />}/>
           <Route path="/leaderboards" element={<LeaderBoard />}/>
           <Route path="/showcategory" element={<ShowCategory />}/>
           <Route path="/showimageforcategory" element={<ShowImageForCategory/>}/>
           <Route path="/about" element={<AboutPage />}/>
-          <Route path="/resultSearch" element={<ResultSearch />}/>
+          <Route path="/resultSearch/:keySearch" element={<ResultSearch />}/>
           <Route path="/adminpage" element={<AdminPage />}/>
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from "react";
 import "./upload.css"
-import {useDropzone} from 'react-dropzone'
 import FooterWibu from '../../components/FooterWibu';
 import Select from 'react-select';
 import NavbarWibu from "../../components/NavbarWibu";

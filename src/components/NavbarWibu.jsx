@@ -6,7 +6,10 @@ import removeCookie from "../hooks/removeCookie";
 import setCookie from "../hooks/setCookie";
 import "./cssComponent/navWibu.css";
 import { FaQuestion, FaUser, FaKey, FaListUl } from 'react-icons/fa'
+import React, { useState, useEffect } from "react";
 function NavbarWibu() {
+  const [searchKey, setSearchKey] = useState("");
+  let url = `${window.location.origin.toString()}/resultSearch/`;
   function Profile(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
@@ -19,8 +22,9 @@ function NavbarWibu() {
   function ProfileBar(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
+      let usrId=getCookie('usr');
       return (
-        <Nav.Link href="/Profile">Profile</Nav.Link>);
+        <Nav.Link href={"/Profile/"+usrId}>Profile</Nav.Link>);
     }
   }
   function ProfileBTN(props) {
@@ -139,8 +143,9 @@ function NavbarWibu() {
                 className="me-2"
                 aria-label="Search"
                 style={{width: "50vh", borderRadius: "2vh"}}
+                onChange={(e) => setSearchKey(e.target.value)}
               />
-              <Button id="btnS" className="btn btn-primary" type="button" href="/resultSearch">
+              <Button id="btnS" className="btn btn-primary" type="button" href={'https://wibuwallpaper.azurewebsites.net/resultSearch/' + searchKey}>
                 Search
               </Button>
             </Form>

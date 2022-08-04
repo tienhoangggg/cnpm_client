@@ -8,8 +8,10 @@ import { FaQuestion, FaUser, FaKey, FaDownload, FaShareAlt, FaThumbsUp, FaRegSta
 import CommentSection from "../../components/CommentSection";
 import FooterWibu from '../../components/FooterWibu';
 import { toast } from 'react-toastify';
-function ShowImage() {
+import { showImageApi } from "../../services/imageServices";
+async function ShowImage() {
     const {imgID}=useParams();
+    let data = await showImageApi({ imgID });
     console.log(imgID);
     let url = `${window.location.origin.toString()}/showImage/`;
     const linkDrive="https://drive.google.com/uc?export=view&id=";
@@ -28,8 +30,10 @@ function ShowImage() {
             </div>
             <div className="utilityBar">
                 <FaThumbsUp className="icon" size={25} color={"#EEBBC3"} />
+                {data.like}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <FaRegStar className="icon" size={25} color={"#EEBBC3"} />
+                {data.star}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href={'https://drive.google.com/uc?export=download&id='+imgID}>
                 <FaDownload className="icon" size={25} color={"#EEBBC3"}/>
