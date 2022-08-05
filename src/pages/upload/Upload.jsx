@@ -68,27 +68,37 @@ function Upload() {
     else 
     return true
   }
-  var website = 'success';
-  const handleSubmission = () => {
-    console.log(website)
-    const formData = new FormData();
-    formData.append(
-      'File',
-      afile,
-      afile.name,
-      category
-    );
-//<<<<<<< HEAD
-    if (checkCate())
-   { 
-    axios.post("./upload", formData);
-    window.location.reload(false); 
+
+  const handleSubmission = async () => {
+    if (!checkCate()) {
+      return;
     }
 
-//=======
-    axios.post("/upload", formData);
-    //window.location.reload(false);
-//>>>>>>> c656029766678793db3356897b1023fb4afee5f7
+    const formData = new FormData();
+   
+    formData.append(
+      'file',
+      afile,
+    )
+
+    formData.append(
+      'fileName',
+      afile.name
+    )
+
+    formData.append(
+      'category',
+      category.map(cate => {
+        return cate.value
+      })
+    )
+
+    try {
+      const response = await axios.post("upload/", formData);
+    } catch (error) {
+      console.log(error)      
+    }
+    // window.location.reload(false); 
   }
   const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
   function ShowSquare(props) {

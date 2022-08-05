@@ -29,7 +29,6 @@ export default function Login() {
   async function handleLogin() {
     try {
       let data = await handleLoginApi(username, password);
-      console.log(data);
       if (data.status === "success") {
         setCookie("usr", username);
         setCookie("logged", 1);

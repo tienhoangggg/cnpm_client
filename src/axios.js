@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     baseURL: 'https://cnpmapi.azurewebsites.net',
-    // withCredentials: true
+    withCredentials: true
 });
 
 instance.interceptors.response.use(
