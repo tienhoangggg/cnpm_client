@@ -6,7 +6,17 @@ import Select from 'react-select';
 import NavbarWibu from "../../components/NavbarWibu";
 import { useEffect, useState, useCallback } from 'react';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
-
+const categoryOption = [
+  {
+    value: 'anime', label: 'Anime'
+  },
+  {
+    value: 'girl anime', label: 'Girl Anime'
+  },
+  {
+    value: 'boy anime', label: 'Boy Anime'
+  },
+]
 
 function Upload() {
   const [afile, setFile] = useState(null);
@@ -41,17 +51,10 @@ function Upload() {
 
   }, [afile]);
 
-  const option = [
-    {
-      value: 'anime', label: 'Anime'
-    },
-    {
-      value: 'girl anime', label: 'Girl Anime'
-    },
-  ]
+  
 
   const handleTag = () => {
-    <Select category={option} />
+    <Select options={categoryOption} />
   }
   var website = 'success';
   const handleSubmission = () => {
@@ -65,7 +68,7 @@ function Upload() {
       category
     );
     axios.post("./upload", formData);
-    window.location.reload(false);
+    //window.location.reload(false);
   }
   const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
   function ShowSquare(props) {
@@ -100,10 +103,26 @@ function Upload() {
         </>);
     }
   }
+
+  function handleCategoryChange([e]) {
+    if (e.value){
+      console.log([e.value]);
+   }
+  }
+
   return (
     <>
       <NavbarWibu />
       <ShowSquare urlimage={fileDataURL} />
+      <Select 
+      closeMenuOnSelect={true}
+      defaultValue= {[category[1]]}
+      isMulti
+      name="category"
+      onChange={handleCategoryChange }
+      options={categoryOption}
+      className="basic-multi-select"
+      classNamePrefix="select" />
     </>
   );
 }
