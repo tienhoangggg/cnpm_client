@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import React, { useState, useEffect, useCallback } from "react";
 import { handleGetProfileApi } from "../../services/userServices";
 import { getRandomImageApi } from "../../services/imageServices";
+import setCookie from "../../hooks/setCookie";
 function Profile() {
   let usernameC = getCookie("usr");
   let { usrID } = useParams();
@@ -50,13 +51,16 @@ function Profile() {
   const [testArr, setTestArray] = useState([]);
   async function testF() {
     const data = await handleGetProfileApi(usrID);
+    setCookie("imgArr", data.image);
     setTestArray(data);
+    //console.log(data.image[0]);
   }
   useEffect(() => {
     testF();
+    console.log("haha");
   }, []);
   return (
-    <>
+    <div style={{ backgroundColor: "#232946" }}>
       <NavbarWibu />
       <section className="h-100 gradient-custom-2">
         <div className="container py-5 h-100">
@@ -96,15 +100,15 @@ function Profile() {
                 >
                   <div className="d-flex justify-content-end text-center py-1">
                     <div>
-                      {/* <p className="mb-1 h5">{data.numOfImage}</p> */}
+                      {/* <p className="mb-1 h5">{testArr.like}</p> */}
                       <p className="small text-muted mb-0">Photos</p>
                     </div>
                     <div className="px-3">
-                      {/* <p className="mb-1 h5">{data.like}</p> */}
+                      {/* <p className="mb-1 h5">{testArr.like}</p> */}
                       <p className="small text-muted mb-0">Likes</p>
                     </div>
                     <div>
-                      {/* <p className="mb-1 h5">{data.star}</p> */}
+                      {/* <p className="mb-1 h5">{testArr.star}</p> */}
                       <p className="small text-muted mb-0">Stars</p>
                     </div>
                   </div>
@@ -118,16 +122,29 @@ function Profile() {
                       </a>
                     </p>
                   </div>
-                  {/* {data.image.map((linkT, index) => <>
-                                        {data.image.map((linkT, index) =><a href={url+data.image[index]}><div><img src={'https://drive.google.com/uc?export=view&id='+data.image[index]} id="anhHomePage"/></div></a>)}
-                                    </>)} */}
                 </div>
+
+                {getCookie("imgArr")
+                  .split(",")
+                  .map((linkT, index) => (
+                    <a href={url + { linkT }} key={index}>
+                      <div>
+                        <img
+                          src={
+                            "https://drive.google.com/uc?export=view&id=" +
+                            linkT
+                          }
+                          style={{ width: "100%" }}
+                        />
+                      </div>
+                    </a>
+                  ))}
               </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

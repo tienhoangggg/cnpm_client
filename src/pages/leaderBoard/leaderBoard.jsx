@@ -26,39 +26,59 @@ function LeaderBoard() {
   const [Likeat, setLikeat] = useState([]);
   const [Starat, setStarat] = useState([]);
   async function takeLBM() {
-    const data = await getRandomImageApi(
-      "anime,background",
-      "month",
-      "like",
-      "10"
-    );
+    const data = await getRandomImageApi("", "month", "like", "10");
+    let temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.push(data[i].id);
+    }
+    if (data.length < 10) {
+      for (var i = data.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("LBM", temp);
     setLikebm(data);
   }
   async function takeSBM() {
-    const data = await getRandomImageApi(
-      "anime,background",
-      "month",
-      "like",
-      "10"
-    );
+    const data = await getRandomImageApi("", "month", "star", "10");
+    let temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.push(data[i].id);
+    }
+    if (data.length < 10) {
+      for (var i = data.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("SBM", temp);
     setStarbm(data);
   }
   async function takeLAT() {
-    const data = await getRandomImageApi(
-      "anime,background",
-      "month",
-      "like",
-      "10"
-    );
+    const data = await getRandomImageApi("", "", "like", "10");
+    let temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.push(data[i].id);
+    }
+    if (data.length < 10) {
+      for (var i = data.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("LAT", temp);
     setLikeat(data);
   }
   async function takeSAT() {
-    const data = await getRandomImageApi(
-      "anime,background",
-      "month",
-      "like",
-      "10"
-    );
+    const data = await getRandomImageApi("", "", "star", "10");
+    let temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.push(data[i].id);
+    }
+    if (data.length < 10) {
+      for (var i = data.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("SAT", temp);
     setStarat(data);
   }
   useEffect(() => {
@@ -127,25 +147,35 @@ function LeaderBoard() {
           <Col id="divCol">Most liked all time</Col>
           <Col id="divCol">Most stared all time</Col>
         </Row>
-        {Likebm.map((imgID, index) => (
-          <>
-            <Row>
-              <Col id="divCol">{index + 1}</Col>
-              <Col id="divCol">
-                <a href={url + Likebm[index].id}>{Likebm[index].id}</a>
-              </Col>
-              <Col id="divCol">
-                <a href={url + Starbm[index].id}>{Starbm[index].id}</a>
-              </Col>
-              <Col id="divCol">
-                <a href={url + Likeat[index].id}>{Likeat[index].id}</a>
-              </Col>
-              <Col id="divCol">
-                <a href={url + Starat[index].id}>{Starat[index].id}</a>
-              </Col>
-            </Row>
-          </>
-        ))}
+        {getCookie("LAT")
+          .split(",")
+          .map((imgID, index) => (
+            <>
+              <Row>
+                <Col id="divCol">{index + 1}</Col>
+                <Col id="divCol">
+                  <a href={url + getCookie("LBM").split(",")[index]}>
+                    {getCookie("LBM").split(",")[index]}
+                  </a>
+                </Col>
+                <Col id="divCol">
+                  <a href={url + getCookie("SBM").split(",")[index]}>
+                    {getCookie("SBM").split(",")[index]}
+                  </a>
+                </Col>
+                <Col id="divCol">
+                  <a href={url + getCookie("LAT").split(",")[index]}>
+                    {getCookie("LAT").split(",")[index]}
+                  </a>
+                </Col>
+                <Col id="divCol">
+                  <a href={url + getCookie("SAT").split(",")[index]}>
+                    {getCookie("SAT").split(",")[index]}
+                  </a>
+                </Col>
+              </Row>
+            </>
+          ))}
       </Container>
       {/* <div className="row" style={{ textAlign: "center" }}>
         <h4

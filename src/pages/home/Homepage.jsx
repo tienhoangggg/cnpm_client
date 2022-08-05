@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import setCookie from "../../hooks/setCookie";
 import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
-import FooterWibu from '../../components/FooterWibu';
+import FooterWibu from "../../components/FooterWibu";
 import NavbarWibu from "../../components/NavbarWibu";
 import dataTest from "./testData";
 import { getRandomImageApi } from "../../services/imageServices";
@@ -40,7 +40,6 @@ function Homepage() {
   // console.log(ImageArray);
   // console.log(ImageArray[0]);
 
-
   // //Delay
   // const [loading, setLoading] = useState(true);
   // useEffect(() => {
@@ -71,8 +70,9 @@ function Homepage() {
 
   const [testArr, setTestArray] = useState([]);
   async function testF() {
-    const data = await getRandomImageApi("anime,background", "month", "like", "10");
+    const data = await getRandomImageApi("background", "", "like", "10");
     setTestArray(data);
+    console.log(data);
   }
   useEffect(() => {
     testF();
@@ -80,13 +80,20 @@ function Homepage() {
   return (
     <>
       <NavbarWibu />
-      <div className='masonry-with-flex'>
-        {testArr.map((linkT, index) =>
+      <div className="masonry-with-flex">
+        {testArr.map((linkT, index) => (
           <a href={url + testArr[index].id} key={index}>
             <div>
-              <img src={'https://drive.google.com/uc?export=view&id=' + testArr[index].id} id="anhHomePage" />
+              <img
+                src={
+                  "https://drive.google.com/uc?export=view&id=" +
+                  testArr[index].id
+                }
+                id="anhHomePage"
+              />
             </div>
-          </a>)}
+          </a>
+        ))}
       </div>
       <FooterWibu />
     </>

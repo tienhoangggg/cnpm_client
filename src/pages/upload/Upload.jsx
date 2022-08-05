@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axios';
 import React from "react";
 import "./upload.css"
 import FooterWibu from '../../components/FooterWibu';
@@ -78,12 +78,17 @@ function Upload() {
       afile.name,
       category
     );
+//<<<<<<< HEAD
     if (checkCate())
    { 
     axios.post("./upload", formData);
     window.location.reload(false); 
     }
 
+//=======
+    axios.post("/upload", formData);
+    //window.location.reload(false);
+//>>>>>>> c656029766678793db3356897b1023fb4afee5f7
   }
   const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
   function ShowSquare(props) {
