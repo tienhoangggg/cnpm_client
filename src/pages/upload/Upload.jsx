@@ -5,6 +5,8 @@ import FooterWibu from '../../components/FooterWibu';
 import Select from 'react-select';
 import NavbarWibu from "../../components/NavbarWibu";
 import { useEffect, useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
+import Layout from '../layout/Layout';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 const categoryOption = [
   {
@@ -21,7 +23,7 @@ const categoryOption = [
 function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState([])
   const changeHandler = (e) => {
     const afile = e.target.files[0];
     if (!afile.type.match(imageMimeType)) {
@@ -56,19 +58,37 @@ function Upload() {
   const handleTag = () => {
     <Select options={categoryOption} />
   }
+  function checkCate()
+  {
+    if (category.length<1)
+    {
+        toast.dark("Category cannot less than 1");
+        return false
+    }
+    else 
+    return true
+  }
   var website = 'success';
   const handleSubmission = () => {
     console.log(website)
     const formData = new FormData();
-
     formData.append(
       'File',
       afile,
       afile.name,
       category
     );
+//<<<<<<< HEAD
+    if (checkCate())
+   { 
+    axios.post("./upload", formData);
+    window.location.reload(false); 
+    }
+
+//=======
     axios.post("/upload", formData);
     //window.location.reload(false);
+//>>>>>>> c656029766678793db3356897b1023fb4afee5f7
   }
   const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
   function ShowSquare(props) {
@@ -80,11 +100,7 @@ function Upload() {
             <img
               src={fileDataURL} alt="preview" id="imgUpload" />
           }
-            <div className='submit-button'>
-            <button onClick={(e)=>setFile(e.target.value=null)}>Cancel</button>
-            <button onClick={handleSubmission} >Submit</button>
-            </div>
-      
+           
         </div>
       );
     } else {
@@ -104,25 +120,44 @@ function Upload() {
     }
   }
 
-  function handleCategoryChange([e]) {
-    if (e.value){
-      console.log([e.value]);
-   }
-  }
-
   return (
     <>
       <NavbarWibu />
-      <ShowSquare urlimage={fileDataURL} />
-      <Select 
-      closeMenuOnSelect={true}
-      defaultValue= {[category[1]]}
-      isMulti
-      name="category"
-      onChange={handleCategoryChange }
-      options={categoryOption}
-      className="basic-multi-select"
-      classNamePrefix="select" />
+        <div className="upload-container">
+          <ShowSquare urlimage={fileDataURL} />
+
+          <div className="upload__fields">
+            <div className='upload__field'>
+              <p className='upload__field-label'>Write description for the image</p>
+              <input className='upload__field-input'></input>
+            </div>
+
+            <div className='upload__field'>
+              <p className='upload__field-label'>Select category</p>
+              <Select
+                className='upload__field-select'
+                closeMenuOnSelect={true}
+                defaultValue= {[category[1]]}
+                isMulti
+                name="category"
+                onChange={(e) => setCategory(e)}
+                options={categoryOption}
+                isClearable
+                // className="basic-multi-select"
+                classNamePrefix="select"
+            
+                />
+            </div>
+            <div className='submit-button'>
+            <button onClick={(e)=>setFile(e.target.value=null)}>Cancel</button>
+            <button onClick={handleSubmission} >Submit</button>
+          
+            </div>
+      
+          </div>
+
+        </div>
+      <FooterWibu/>
     </>
   );
 }
