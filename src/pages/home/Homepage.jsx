@@ -69,10 +69,64 @@ function Homepage() {
   // console.log(ImageArray[0]);
 
   const [testArr, setTestArray] = useState([]);
+  async function getLeaderBoards() {
+    //Like by month
+    const data = await getRandomImageApi("", "month", "like", "10");
+    let temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.push(data[i].id);
+    }
+    if (data.length < 10) {
+      for (var i = data.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("LBM", temp);
+
+    //Star by month
+    const data2 = await getRandomImageApi("", "month", "star", "10");
+    temp = [];
+    for (var i = 0; i < data2.length; i++) {
+      temp.push(data2[i].id);
+    }
+    if (data2.length < 10) {
+      for (var i = data2.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("SBM", temp);
+
+    //Like all time
+    const data3 = await getRandomImageApi("", "", "like", "10");
+    temp = [];
+    for (var i = 0; i < data3.length; i++) {
+      temp.push(data3[i].id);
+    }
+    if (data3.length < 10) {
+      for (var i = data3.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("LAT", temp);
+
+    //Star all time
+    const data4 = await getRandomImageApi("", "", "star", "10");
+    temp = [];
+    for (var i = 0; i < data4.length; i++) {
+      temp.push(data4[i].id);
+    }
+    if (data4.length < 10) {
+      for (var i = data4.length; i < 10; i++) {
+        temp.push(" ");
+      }
+    }
+    setCookie("SAT", temp);
+  }
   async function testF() {
     const data = await getRandomImageApi("background", "", "like", "10");
     setTestArray(data);
     console.log(data);
+    getLeaderBoards();
   }
   useEffect(() => {
     testF();

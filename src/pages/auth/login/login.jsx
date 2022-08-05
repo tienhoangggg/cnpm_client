@@ -35,6 +35,9 @@ export default function Login() {
         setCookie("logged", 1);
         setCookie("usrid", data.user.id);
         toast.dark("Logged in as " + username);
+        let usrId = getCookie("usrid");
+        const Imagedata = await handleGetProfileApi(usrId);
+        setCookie("imgArr", Imagedata.image);
         return navigate("/");
       } else {
         document.getElementById("form3Example3").value = "";
