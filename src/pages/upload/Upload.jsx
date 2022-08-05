@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axios';
 import React from "react";
 import "./upload.css"
 import FooterWibu from '../../components/FooterWibu';
@@ -67,7 +67,7 @@ function Upload() {
       afile.name,
       category
     );
-    axios.post("./upload", formData);
+    axios.post("/upload", formData);
     //window.location.reload(false);
   }
   const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
