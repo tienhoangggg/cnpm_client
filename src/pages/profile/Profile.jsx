@@ -8,8 +8,9 @@ import { Link, useParams } from "react-router-dom";
 import { handleGetProfileApi } from "../../services/userServices";
 async function Profile() {
     let usernameC = getCookie('usr');
-    let { userID } = useParams();
-    let data = await handleGetProfileApi(userID)
+    let { usrID } = useParams();
+    console.log(usrID);
+    let data = await handleGetProfileApi({usrID})
     let url = `${window.location.origin.toString()}/showImage/`;
     return (
         <>

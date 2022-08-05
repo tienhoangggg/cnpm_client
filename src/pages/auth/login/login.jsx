@@ -22,6 +22,7 @@ export default function Login() {
             if (data.status === "success") {
                 setCookie('usr', username)
                 setCookie('logged', 1)
+                setCookie('usrid', data.user.id)
                 toast.dark("Logged in as " + username);
                 return navigate("/");
             } else {

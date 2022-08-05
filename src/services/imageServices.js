@@ -4,4 +4,7 @@ const showImageApi = (idImage) =>{
     return axios.get('comment/read', {"idImage": idImage});
 }
 
-export { showImageApi }
+const getRandomImageApi = (tags,time,sortby,num) =>{
+    return axios.post('getview/', {"sortby": sortby, "time": time, "num": num, "category": tags})
+}
+export { showImageApi, getRandomImageApi}

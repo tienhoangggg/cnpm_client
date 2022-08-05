@@ -22,7 +22,7 @@ function NavbarWibu() {
   function ProfileBar(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
-      let usrId=getCookie('usr');
+      let usrId=getCookie('usrid');
       return (
         <Nav.Link href={"/Profile/"+usrId}>Profile</Nav.Link>);
     }
