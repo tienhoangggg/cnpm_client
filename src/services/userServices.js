@@ -11,8 +11,9 @@ const handleRegisterApi = (userUsername, userEmail, userPassword) => {
     });
 }
 const handleGetProfileApi = (userId) =>{
-    console.log(userId);
-    return axios.get('users/getprofile', {data: {id: userId}});
+    console.log('users/getprofile/'+userId);
+    //'users/getprofile'
+    return axios.get('users/getprofile/'+userId);
 }
 
 export { handleLoginApi, handleRegisterApi, handleGetProfileApi}
