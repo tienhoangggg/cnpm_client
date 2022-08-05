@@ -53,6 +53,7 @@ function Profile() {
     const data = await handleGetProfileApi(usrID);
     setCookie("imgArr", data.image);
     setTestArray(data);
+    console.log(data);
     //console.log(data.image[0]);
   }
   useEffect(() => {
