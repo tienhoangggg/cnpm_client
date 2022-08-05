@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import setCookie from "../hooks/setCookie";
 import "./cssComponent/CommentSection.css";
 import { FaQuestion, FaUser, FaKey, FaListUl } from 'react-icons/fa'
-import React from 'react'
+import React, { useState, useEffect, useCallback } from "react";
 import { showImageApi } from "../services/imageServices";
 async function CommentSection() {
     const imageData = []

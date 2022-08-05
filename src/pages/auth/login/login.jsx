@@ -5,7 +5,7 @@ import { Button, Navbar, ListGroup, Dropdown, Carousel, Form, Toast } from "reac
 import NavbarWibu from "../../../components/NavbarWibu";
 import { FaQuestion, FaUser, FaKey } from 'react-icons/fa'
 import { Link } from "react-router-dom";
-import { handleLoginApi } from "../../../services/userServices";
+import { handleLoginApi, handleGetProfileApi } from "../../../services/userServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import setCookie from "../../../hooks/setCookie";

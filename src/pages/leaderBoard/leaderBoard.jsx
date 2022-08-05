@@ -1,6 +1,14 @@
-import React from 'react'
-import { Button, Navbar, ListGroup, Dropdown, Carousel, Container, Row, Col } from "react-bootstrap";
-import Nav from 'react-bootstrap/Nav';
+import {
+  Button,
+  Navbar,
+  ListGroup,
+  Dropdown,
+  Carousel,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/images/logo.png";
 import welcome from "../../assets/images/welcome.png";
 import "./leaderBoard.css";
@@ -8,61 +16,105 @@ import { Link } from "react-router-dom";
 import setCookie from "../../hooks/setCookie";
 import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
-import NavbarWibu from '../../components/NavbarWibu';
-import FooterWibu from '../../components/FooterWibu';
+import NavbarWibu from "../../components/NavbarWibu";
+import FooterWibu from "../../components/FooterWibu";
+import { getRandomImageApi } from "../../services/imageServices";
+import React, { useState, useEffect, useCallback } from "react";
 function LeaderBoard() {
-  const Likebm =
-    [
-      '19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5',
-      '1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs',
-      '1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw',
-      '1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj',
-      '1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-',
-      '1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3',
-      '1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s',
-      '1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv',
-      '1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5',
-      '1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK',
-    ]
-  const Starbm =
-    [
-      '19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5',
-      '1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs',
-      '1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw',
-      '1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj',
-      '1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-',
-      '1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3',
-      '1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s',
-      '1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv',
-      '1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5',
-      '1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK',
-    ]
-  const Likeat =
-    [
-      '19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5',
-      '1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs',
-      '1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw',
-      '1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj',
-      '1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-',
-      '1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3',
-      '1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s',
-      '1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv',
-      '1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5',
-      '1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK',
-    ]
-  const Starat =
-    [
-      '19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5',
-      '1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs',
-      '1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw',
-      '1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj',
-      '1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-',
-      '1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3',
-      '1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s',
-      '1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv',
-      '1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5',
-      '1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK',
-    ]
+  const [Likebm, setLikebm] = useState([]);
+  const [Starbm, setStarbm] = useState([]);
+  const [Likeat, setLikeat] = useState([]);
+  const [Starat, setStarat] = useState([]);
+  async function takeLBM() {
+    const data = await getRandomImageApi(
+      "anime,background",
+      "month",
+      "like",
+      "10"
+    );
+    setLikebm(data);
+  }
+  async function takeSBM() {
+    const data = await getRandomImageApi(
+      "anime,background",
+      "month",
+      "like",
+      "10"
+    );
+    setStarbm(data);
+  }
+  async function takeLAT() {
+    const data = await getRandomImageApi(
+      "anime,background",
+      "month",
+      "like",
+      "10"
+    );
+    setLikeat(data);
+  }
+  async function takeSAT() {
+    const data = await getRandomImageApi(
+      "anime,background",
+      "month",
+      "like",
+      "10"
+    );
+    setStarat(data);
+  }
+  useEffect(() => {
+    takeLBM();
+    takeSBM();
+    takeLAT();
+    takeSAT();
+  }, []);
+  // const Likebm = [
+  //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
+  //   "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
+  //   "1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw",
+  //   "1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj",
+  //   "1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-",
+  //   "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
+  //   "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
+  //   "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
+  //   "1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
+  //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
+  // ];
+  // const Starbm = [
+  //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
+  //   "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
+  //   "1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw",
+  //   "1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj",
+  //   "1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-",
+  //   "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
+  //   "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
+  //   "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
+  //   "1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
+  //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
+  // ];
+  // const Likeat = [
+  //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
+  //   "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
+  //   "1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw",
+  //   "1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj",
+  //   "1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-",
+  //   "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
+  //   "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
+  //   "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
+  //   "1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
+  //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
+  // ];
+  // const Starat = [
+  //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
+  //   "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
+  //   "1FjK29ynIxF7_lwlgBmXnus1QnnSaJisw",
+  //   "1Gc7DBQu4wVB8QHnx9vkpVed6K70jarbj",
+  //   "1kZRUVTNQz7c6YgXVbMwypuKHAwKfP6U-",
+  //   "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
+  //   "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
+  //   "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
+  //   "1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
+  //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
+  // ];
   let url = `${window.location.origin.toString()}/showImage/`;
   return (
     <div>
@@ -75,31 +127,25 @@ function LeaderBoard() {
           <Col id="divCol">Most liked all time</Col>
           <Col id="divCol">Most stared all time</Col>
         </Row>
-        {Likebm.map((imgID, index) => <>
-          <Row>
-            <Col id="divCol">{index + 1}</Col>
-            <Col id="divCol">
-              <a href={url + Likebm[index]}>
-                {Likebm[index]}
-              </a>
-            </Col>
-            <Col id="divCol">
-              <a href={url + Starbm[index]}>
-                {Starbm[index]}
-              </a>
-            </Col>
-            <Col id="divCol">
-              <a href={url + Likeat[index]}>
-                {Likeat[index]}
-              </a>
-            </Col>
-            <Col id="divCol">
-              <a href={url + Starat[index]}>
-                {Starat[index]}
-              </a>
-            </Col>
-          </Row>
-        </>)}
+        {Likebm.map((imgID, index) => (
+          <>
+            <Row>
+              <Col id="divCol">{index + 1}</Col>
+              <Col id="divCol">
+                <a href={url + Likebm[index].id}>{Likebm[index].id}</a>
+              </Col>
+              <Col id="divCol">
+                <a href={url + Starbm[index].id}>{Starbm[index].id}</a>
+              </Col>
+              <Col id="divCol">
+                <a href={url + Likeat[index].id}>{Likeat[index].id}</a>
+              </Col>
+              <Col id="divCol">
+                <a href={url + Starat[index].id}>{Starat[index].id}</a>
+              </Col>
+            </Row>
+          </>
+        ))}
       </Container>
       {/* <div className="row" style={{ textAlign: "center" }}>
         <h4
@@ -135,7 +181,7 @@ function LeaderBoard() {
       </div> */}
       <FooterWibu />
     </div>
-  )
+  );
 }
 
-export default LeaderBoard
+export default LeaderBoard;

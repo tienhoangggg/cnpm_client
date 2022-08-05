@@ -4,23 +4,51 @@ import welcome from "../../assets/images/welcome.png";
 import "./ShowImage.css";
 import { Link, useParams } from "react-router-dom";
 import NavbarWibu from "../../components/NavbarWibu";
-import { FaQuestion, FaUser, FaKey, FaDownload, FaShareAlt, FaThumbsUp, FaRegStar, FaRegFlag} from 'react-icons/fa'
+import { FaQuestion, FaUser, FaKey, FaDownload, FaShareAlt, FaThumbsUp, FaRegStar, FaRegFlag } from 'react-icons/fa'
 import CommentSection from "../../components/CommentSection";
 import FooterWibu from '../../components/FooterWibu';
 import { toast } from 'react-toastify';
 import { showImageApi } from "../../services/imageServices";
-async function ShowImage() {
-    const {imgID}=useParams();
-    let data = await showImageApi({ imgID });
-    console.log(imgID);
+import React, { useState, useEffect, useCallback } from "react";
+function ShowImage() {
+    const { imgID } = useParams();
+    //let data = await showImageApi({ imgID });
+    //console.log(imgID);
     let url = `${window.location.origin.toString()}/showImage/`;
-    const linkDrive="https://drive.google.com/uc?export=view&id=";
-    console.log(url);
+    const linkDrive = "https://drive.google.com/uc?export=view&id=";
+
+    // //Delay
+    // const [loading, setLoading] = useState(true);
+    // useEffect(() => {
+
+    //     setTimeout(() => {
+    //         setLoading(false)
+    //     }, 1500)
+
+    // }, []);
+
+    // //Fetch data
+    // const [CommentArray, SetCommentArray] = useState("");
+    // // declare the async data fetching function
+    // useEffect(() => {
+    //     axiosGet();
+    // }, []);
+    // async function axiosGet() {
+    //     const data = await showImageApi({ imgID });;
+    //     SetCommentArray(data);
+    // }
+
+    // if (loading) {
+    //     return <div>loading...</div>
+    // }
+    //console.log(url);
+    console.log(imgID);
+    //console.log(CommentArray);
     return (
         <div id="showImageBody">
             <NavbarWibu />
             <img
-                src={'https://drive.google.com/uc?export=view&id='+imgID}
+                src={'https://drive.google.com/uc?export=view&id=' + imgID}
                 alt="Image 1"
                 className="rounded mx-auto d-block"
                 id="idShowImage"
@@ -30,35 +58,35 @@ async function ShowImage() {
             </div>
             <div className="utilityBar">
                 <FaThumbsUp className="icon" size={25} color={"#EEBBC3"} />
-                {data.like}
+                {/* {data.like} */}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <FaRegStar className="icon" size={25} color={"#EEBBC3"} />
-                {data.star}
+                {/* {data.star} */}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href={'https://drive.google.com/uc?export=download&id='+imgID}>
-                <FaDownload className="icon" size={25} color={"#EEBBC3"}/>
+                <a href={'https://drive.google.com/uc?export=download&id=' + imgID}>
+                    <FaDownload className="icon" size={25} color={"#EEBBC3"} />
                 </a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <FaShareAlt className="icon" size={25} color={"#EEBBC3"} onClick={() => {navigator.clipboard.writeText(url+imgID); toast.dark("Copied to clipboard");}}/>
+                <FaShareAlt className="icon" size={25} color={"#EEBBC3"} onClick={() => { navigator.clipboard.writeText(url + imgID); toast.dark("Copied to clipboard"); }} />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
             </div>
             <br />
-            <div style={{padding: "3rem"}}>
-            <Card className="descriptionBox">
-                <Card.Body>
-                    <Card.Title>Description</Card.Title>
-                    <Card.Text>
-                        Uploader:
-                    </Card.Text>
-                    <Card.Text>
-                        Id:
-                    </Card.Text>
-                    <Card.Text>
-                        This is a good image i want to share with every one
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+            <div style={{ padding: "3rem" }}>
+                <Card className="descriptionBox">
+                    <Card.Body>
+                        <Card.Title>Description</Card.Title>
+                        <Card.Text>
+                            Uploader:
+                        </Card.Text>
+                        <Card.Text>
+                            Id:
+                        </Card.Text>
+                        <Card.Text>
+                            This is a good image i want to share with every one
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
             </div>
             <CommentSection />
             <FooterWibu />

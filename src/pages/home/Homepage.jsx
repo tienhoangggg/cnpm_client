@@ -41,38 +41,52 @@ function Homepage() {
   // console.log(ImageArray[0]);
 
 
+  // //Delay
+  // const [loading, setLoading] = useState(true);
+  // useEffect(() => {
 
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false)
+  //   }, 3000)
 
-    setTimeout(() => {
-      setLoading(false)
-    }, 1500)
+  // }, []);
 
-  }, []);
+  // //Fetch data
+  // const [ImageArray, SetImageArray] = useState("");
+  // // declare the async data fetching function
+  // useEffect(() => {
+  //   axiosGet();
+  // }, []);
+  // async function axiosGet() {
+  //   const data = await getRandomImageApi("background", "month", "like", "10");
+  //   SetImageArray(data);
+  // }
 
-  const [ImageArray, SetImageArray] = useState("");
-  // declare the async data fetching function
-  useEffect(() => {
-    axiosGet();
-  }, []);
-  async function axiosGet() {
+  // if (loading) {
+  //   return <div>loading...</div>
+  // }
+
+  // console.log(ImageArray);
+  // console.log(ImageArray[0]);
+
+  const [testArr, setTestArray] = useState([]);
+  async function testF() {
     const data = await getRandomImageApi("anime,background", "month", "like", "10");
-    SetImageArray(data);
+    setTestArray(data);
   }
-
-  if (loading) {
-    return <div>loading...</div>
-  }
-
-  console.log(ImageArray);
-  console.log(ImageArray[0]);
-
+  useEffect(() => {
+    testF();
+  }, []);
   return (
     <>
       <NavbarWibu />
       <div className='masonry-with-flex'>
-        {ImageArray.map((linkT, index) => <a href={url + ImageArray[index].id}><div><img src={'https://drive.google.com/uc?export=view&id=' + ImageArray[index].id} id="anhHomePage" /></div></a>)}
+        {testArr.map((linkT, index) =>
+          <a href={url + testArr[index].id} key={index}>
+            <div>
+              <img src={'https://drive.google.com/uc?export=view&id=' + testArr[index].id} id="anhHomePage" />
+            </div>
+          </a>)}
       </div>
       <FooterWibu />
     </>
