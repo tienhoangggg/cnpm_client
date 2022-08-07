@@ -1,7 +1,8 @@
 import axios from "../axios"
 
 const showImageApi = (idImage) =>{
-    return axios.get('comment/read', {"idImage": idImage});
+    //console.log('comment/read/'+idImage);
+    return axios.get('comment/read/'+idImage);
 }
 
 const getRandomImageApi = (tags,time,sortby,num) =>{
@@ -12,4 +13,7 @@ const uploadImage =(afile,fileName,tag)=>{
     return axios.post('upload/',{"file":afile,"fileName":fileName,"tag":tag})
 }
 
+const readCategoriesApi = ()=>{
+    return axios.post('/category/read')
+}
 export { showImageApi, getRandomImageApi,uploadImage}

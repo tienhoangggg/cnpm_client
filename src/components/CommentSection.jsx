@@ -21,18 +21,29 @@ import "./cssComponent/CommentSection.css";
 import { FaQuestion, FaUser, FaKey, FaListUl } from "react-icons/fa";
 import React, { useState, useEffect, useCallback } from "react";
 import { showImageApi } from "../services/imageServices";
-async function CommentSection() {
-  const imageData = [];
-  const nameData = [];
-  const dateData = [];
-  const desData = [];
+function CommentSection() {
+  // const imageData = [];
+  // const nameData = [];
+  // const dateData = [];
+  // const desData = [];
   const { imgID } = useParams();
-  let data = await showImageApi({ imgID });
+  let [imageData, setImg] = useState([]);
+  let [nameData, setName] = useState([]);
+  let [dateData, setDate] = useState([]);
+  let [desData, setDes] = useState([]);
+  let [initVal, setInitVal] = useState([1]);
+  async function fetchComment() {
+    const data = await showImageApi(imgID);
+    console.log(data);
+    setImg(data.idAvatar);
+    setName(data.username);
+    setDate(data.updatedAt);
+    setDes(data.content);
+  }
 
-  imageData = data.idAvatar;
-  nameData = data.username;
-  dateData = data.updatedAt;
-  desData = data.content;
+  useEffect(() => {
+    fetchComment();
+  }, initVal);
 
   function CommentBox(props) {
     const isLoggedIn = props.isLoggedIn;
