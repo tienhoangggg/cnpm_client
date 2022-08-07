@@ -21,6 +21,7 @@ import "./cssComponent/CommentSection.css";
 import { FaQuestion, FaUser, FaKey, FaListUl } from "react-icons/fa";
 import React, { useState, useEffect, useCallback } from "react";
 import { showImageApi } from "../services/imageServices";
+import { sendComment } from "../services/imageServices";
 function CommentSection() {
   // const imageData = [];
   // const nameData = [];
@@ -32,6 +33,14 @@ function CommentSection() {
   let [dateData, setDate] = useState([]);
   let [desData, setDes] = useState([]);
   let [initVal, setInitVal] = useState([1]);
+  let [contentC, setContentC] = useState("");
+  async function submitComment() {
+    //id image, id avatar, username, content
+    console.log(imgID);
+    console.log(getCookie("imgavatar"));
+    console.log(getCookie("usr"));
+    console.log(contentC);
+  }
   async function fetchComment() {
     const data = await showImageApi(imgID);
     console.log(data);
@@ -64,7 +73,11 @@ function CommentSection() {
               overflow: "scroll",
               borderRadius: "0%",
             }}
+            onChange={(e) => setContentC(e.target.value)}
           />
+          <Button id="btnS" onClick={() => submitComment()}>
+            Submit
+          </Button>
         </div>
       );
     } else {

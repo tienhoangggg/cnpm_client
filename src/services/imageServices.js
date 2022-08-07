@@ -16,4 +16,8 @@ const uploadImage =(afile,fileName,tag)=>{
 const readCategoriesApi = ()=>{
     return axios.post('/category/read')
 }
-export { showImageApi, getRandomImageApi,uploadImage}
+
+const sendComment = (idImage, idAvatar, username, content)=>{
+    return axios.post('comment/create', {"idImage": idImage, "idAvatar": idAvatar, "username": username, "content": content});
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment}

@@ -26,6 +26,7 @@ import FooterWibu from "../../components/FooterWibu";
 import { toast } from "react-toastify";
 import { showImageApi } from "../../services/imageServices";
 import React, { useState, useEffect, useCallback } from "react";
+import { sendComment } from "../../services/imageServices";
 function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
