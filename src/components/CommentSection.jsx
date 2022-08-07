@@ -73,6 +73,7 @@ function CommentSection() {
               // overflow: "scroll",
               borderRadius: "0%",
             }}
+            value={contentC}
             onChange={(e) => setContentC(e.target.value)}
           />
           <Button id="btnS" onClick={() => submitComment()}>
