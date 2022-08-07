@@ -33,7 +33,7 @@ function CommentSection() {
   let [dateData, setDate] = useState([]);
   let [desData, setDes] = useState([]);
   let [initVal, setInitVal] = useState([1]);
-  let [contentC, setContentC] = useState("");
+  const [contentC, setContentC] = useState("");
   async function submitComment() {
     //id image, id avatar, username, content
     console.log(imgID);
@@ -70,7 +70,7 @@ function CommentSection() {
             style={{
               width: "80%",
               height: "5vh",
-              overflow: "scroll",
+              // overflow: "scroll",
               borderRadius: "0%",
             }}
             onChange={(e) => setContentC(e.target.value)}
