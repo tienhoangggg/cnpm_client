@@ -27,6 +27,9 @@ import { toast } from "react-toastify";
 import { showImageApi } from "../../services/imageServices";
 import React, { useState, useEffect, useCallback } from "react";
 import { sendComment } from "../../services/imageServices";
+import { likeImage } from "../../services/imageServices";
+import { starImage } from "../../services/imageServices";
+import getCookie from "../../hooks/getCookie";
 function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
@@ -61,13 +64,21 @@ function ShowImage() {
   // }
   //console.log(url);
   //console.log(CommentArray);
-  let [likeN, setLikeN] = useState(1);
-  let [starN, setStarN] = useState(1);
+  let [likeN, setLikeN] = useState(0);
+  let [starN, setStarN] = useState(0);
   async function getData() {
     const data = await showImageApi(imgID);
     setLikeN(data.like);
     setStarN(data.star);
     console.log(data);
+  }
+  async function likeImg() {
+    const data = await likeImage(getCookie("usrid"), imgID);
+    setLikeN({ likeN } + 1);
+  }
+  async function starImg() {
+    const data = await starImage(getCookie("usrid"), imgID);
+    setStarN({ starN } + 1);
   }
   useEffect(() => {
     getData();
@@ -83,12 +94,22 @@ function ShowImage() {
       />
       <div id="titleText">This is a test title</div>
       <div className="utilityBar">
-        <FaThumbsUp className="icon" size={25} color={"#EEBBC3"} />
+        <FaThumbsUp
+          className="icon"
+          size={25}
+          color={"#EEBBC3"}
+          onClick={() => likeImg()}
+        />
         &nbsp;&nbsp;
         <div style={{ color: "white", display: "inline" }}>{likeN}</div>
         {/* {data.like} */}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FaRegStar className="icon" size={25} color={"#EEBBC3"} />
+        <FaRegStar
+          className="icon"
+          size={25}
+          color={"#EEBBC3"}
+          onClick={() => starImg()}
+        />
         &nbsp;&nbsp;
         <div style={{ color: "white", display: "inline" }}>{starN}</div>
         {/* {data.star} */}

@@ -84,6 +84,7 @@ function CommentSection() {
             //onChange={(e) => setContentC(e.target.value)}
             ref={contentC}
           />
+          &nbsp;&nbsp;
           <Button id="btnS" onClick={() => submitComment()}>
             Submit
           </Button>
