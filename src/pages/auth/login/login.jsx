@@ -34,7 +34,7 @@ export default function Login() {
         setCookie("logged", 1);
         setCookie("usrid", data.user.id);
         setCookie("imgavatar", data.user.image);
-        setCookie("token", data.token);
+        // setCookie("token", data.token);
         toast.dark("Logged in as " + username);
         let usrId = getCookie("usrid");
         const Imagedata = await handleGetProfileApi(usrId);
