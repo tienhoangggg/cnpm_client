@@ -15,6 +15,7 @@ import axios from "axios";
 function Homepage() {
   // const [idArray, setArray] = useState("");
   let url = `${window.location.origin.toString()}/showImage/`;
+  //let url2 = `${window.location.origin.toString()}/morePage/`;
   // let imgID=[];
   // async function GetArray() {
   //     let data = await getRandomImageApi("anime,background", "month", "like", "10")
@@ -131,6 +132,8 @@ function Homepage() {
   useEffect(() => {
     testF();
   }, []);
+  //anime
+  //background
   return (
     <>
       <NavbarWibu />
@@ -149,6 +152,7 @@ function Homepage() {
           </a>
         ))}
       </div>
+
       <FooterWibu />
     </>
   );

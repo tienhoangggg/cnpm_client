@@ -73,11 +73,13 @@ function ShowImage() {
     console.log(data);
   }
   async function likeImg() {
-    const data = await likeImage(getCookie("usrid"), imgID);
+    const data = await likeImage(imgID);
+    console.log(data);
     setLikeN({ likeN } + 1);
   }
   async function starImg() {
-    const data = await starImage(getCookie("usrid"), imgID);
+    const data = await starImage(imgID);
+    console.log(data);
     setStarN({ starN } + 1);
   }
   useEffect(() => {

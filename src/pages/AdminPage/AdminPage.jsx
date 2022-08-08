@@ -23,6 +23,8 @@ import { getRandomImageApi } from "../../services/imageServices";
 
 function AdminPage() {
   const [imgID, setimgID] = useState([]);
+
+  //const numberOfReport = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   // const imgID = [
   //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
   //   "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
@@ -36,10 +38,10 @@ function AdminPage() {
   //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
   // ];
   let url = `${window.location.origin.toString()}/showImage/`;
-  const numberOfReport = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   async function testF() {
     const data = await getRandomImageApi("anime", "", "like", "10");
+    setimgID(data);
     console.log(data);
   }
   useEffect(() => {
@@ -57,8 +59,8 @@ function AdminPage() {
         {imgID.map((linkT, index) => (
           <>
             <Row>
-              <Col id="divCol">{url + linkT}</Col>
-              <Col id="divCol">{numberOfReport[index]}</Col>
+              <Col id="divCol">{url + imgID[index].id}</Col>
+              <Col id="divCol">{imgID[index].numberOfReports}</Col>
               <Col id="divCol">
                 <Button id="btnS">Delete</Button>
               </Col>

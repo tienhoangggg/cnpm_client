@@ -20,10 +20,11 @@ const readCategoriesApi = ()=>{
 const sendComment = (idImage, idAvatar, username, content)=>{
     return axios.post('comment/create', {"idImage": idImage, "idAvatar": idAvatar, "username": username, "content": content});
 }
-const likeImage = (idUser, idImage) =>{
-    return axios.post('image/like', {"idUser": idUser, "idImage": idImage});
+const likeImage = (idImage) =>{
+    return axios.post('image/like', {"idImage": idImage});
 }
-const starImage = (idUser, idImage) =>{
-    return axios.post('image/like', {"idUser": idUser, "idImage": idImage});
+const starImage = (idImage) =>{
+    return axios.post('image/like', {"idImage": idImage});
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage}
+
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi}
