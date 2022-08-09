@@ -35,12 +35,8 @@ export default function Login() {
         setCookie("logged", 1);
         setCookie("usrid", data.user.id);
         setCookie("imgavatar", data.user.image);
-<<<<<<< HEAD
         setCookie("token", data.token);
         setCookie("userRole", data.user.role);
-=======
-        // setCookie("token", data.token);
->>>>>>> 9b778017bd54cf2dc368330466418e3b790bea04
         toast.dark("Logged in as " + username);
         let usrId = getCookie("usrid");
         const Imagedata = await handleGetProfileApi(usrId);
