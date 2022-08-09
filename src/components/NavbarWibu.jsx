@@ -133,7 +133,7 @@ function NavbarWibu() {
   }
   return (
     <>
-      <Navbar className="ms-auto navbar-dark" style={{ fontSize: "2.5vh" }}>
+      <Navbar className="ms-auto navbar-dark " style={{ fontSize: "2.5vh" }}>
         <Container fluid>
           <Navbar.Brand href="/home">
             <img
@@ -144,7 +144,7 @@ function NavbarWibu() {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
+          <Navbar.Collapse id="navbarScroll ">
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
@@ -161,7 +161,7 @@ function NavbarWibu() {
                 <NavDropdown.Item href="/about">About us</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" style={{ paddingTop: "1.3%" }}>
               <Form.Control
                 type="search"
                 placeholder="Type a name or id"
@@ -174,10 +174,7 @@ function NavbarWibu() {
                 id="btnS"
                 className="btn btn-primary"
                 type="button"
-                href={
-                  "https://wibuwallpaper.azurewebsites.net/resultSearch/" +
-                  searchKey
-                }
+                href={url + searchKey}
               >
                 Search
               </Button>

@@ -26,5 +26,8 @@ const likeImage = (idImage) =>{
 const starImage = (idImage) =>{
     return axios.post('image/like', {"idImage": idImage});
 }
-
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi}
+const searchApi = (searchKey) =>{
+    console.log('search/'+searchKey);
+    return axios.get('search/'+searchKey)
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi}
