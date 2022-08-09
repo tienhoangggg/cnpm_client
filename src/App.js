@@ -13,6 +13,7 @@ import ShowCategory from "./pages/showCategory/showCategory";
 import LeaderBoard from "./pages/leaderBoard/leaderBoard";
 import ResultSearch from "./pages/resultSearch/resultSearch";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import MorePage from "./pages/morePage/MorePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import{toast, ToastContainer} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
@@ -31,9 +32,10 @@ function App() {
           <Route path="/profile/:usrID" element={<Profile />}/>
           <Route path="/leaderboards" element={<LeaderBoard />}/>
           <Route path="/showcategory" element={<ShowCategory />}/>
-          <Route path="/showimageforcategory" element={<ShowImageForCategory/>}/>
+          <Route path="/showimageforcategory/:categoryname" element={<ShowImageForCategory/>}/>
           <Route path="/about" element={<AboutPage />}/>
           <Route path="/resultSearch/:keySearch" element={<ResultSearch />}/>
+          <Route path="/morePage/:categoryname" element={<MorePage />}/>
           <Route path="/adminpage" element={<AdminPage />}/>
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>

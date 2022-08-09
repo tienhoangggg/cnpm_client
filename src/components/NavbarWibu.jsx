@@ -28,7 +28,7 @@ function NavbarWibu() {
     setCookie("imgArr", data.image);
     //console.log(data.image[0]);
   }
-  
+
   function Profile(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
@@ -50,6 +50,14 @@ function NavbarWibu() {
           Profile
         </Nav.Link>
       );
+    }
+  }
+  function AdminBar(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn == 1) {
+      if (getCookie("userRole") == 1) {
+        return <Nav.Link href={"/adminpage"}>Admin</Nav.Link>;
+      }
     }
   }
   function ProfileBTN(props) {
@@ -147,6 +155,7 @@ function NavbarWibu() {
               <ProfileBar isLoggedIn={getCookie("logged")} />
               <LoginNav isLoggedIn={getCookie("logged")} />
               <UploadBar isLoggedIn={getCookie("logged")} />
+              <AdminBar isLoggedIn={getCookie("logged")} />
               <NavDropdown title="More" id="navbarScrollingDropdown">
                 <LogoutList isLoggedIn={getCookie("logged")} />
                 <NavDropdown.Item href="/about">About us</NavDropdown.Item>

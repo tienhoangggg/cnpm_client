@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
 import { Button, Navbar, ListGroup, Dropdown, Carousel } from "react-bootstrap";
 import logo from "../../assets/images/logo.png";
 import welcome from "../../assets/images/welcome.png";
-import "./showImageForCategory.css";
+import "./MorePage.css";
 import { Link, useParams } from "react-router-dom";
 import setCookie from "../../hooks/setCookie";
 import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
-import NavbarWibu from "../../components/NavbarWibu";
 import FooterWibu from "../../components/FooterWibu";
+import NavbarWibu from "../../components/NavbarWibu";
 import { getRandomImageApi } from "../../services/imageServices";
-function ShowImageForCategory() {
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+function MorePage() {
   let { categoryname } = useParams();
   console.log(categoryname);
   let url = `${window.location.origin.toString()}/showImage/`;
-
-  let [testArr, setTest] = useState([]);
+  const [testArr, setTest] = useState([]);
   async function fetchData() {
-    const data = await getRandomImageApi(categoryname, "", "like", "20");
+    const data = await getRandomImageApi(categoryname, "month", "like", "20");
     console.log(data);
-    setTest(data);
+    setTest(testArr);
   }
   useEffect(() => {
     fetchData();
   }, []);
-  const dataTest = [];
   return (
     <>
       <NavbarWibu />
@@ -49,4 +48,4 @@ function ShowImageForCategory() {
   );
 }
 
-export default ShowImageForCategory;
+export default MorePage;
