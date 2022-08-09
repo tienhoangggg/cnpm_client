@@ -75,12 +75,12 @@ function ShowImage() {
   async function likeImg() {
     const data = await likeImage(imgID);
     console.log(data);
-    setLikeN({ likeN } + 1);
+    setLikeN(likeN + 1);
   }
   async function starImg() {
     const data = await starImage(imgID);
     console.log(data);
-    setStarN({ starN } + 1);
+    setStarN(starN + 1);
   }
   useEffect(() => {
     getData();

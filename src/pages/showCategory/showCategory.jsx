@@ -33,6 +33,11 @@ function ShowCategory() {
   //   "https://drive.google.com/uc?export=view&id=1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
   //   "https://drive.google.com/uc?export=view&id=1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
   // ];
+  const [fakeImg, setFake] = useState([
+    "1fipnVaWn4BMMRry8CAmWgtmRXC2ltO7q",
+    "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
+    "1TAso8UAO-mrXRi7CLNpo8gKbTRkVdZ2o",
+  ]);
   const [textData, setTextData] = useState([]);
   const [linkI, setImg] = useState([]);
   const [initLoad, setInitLoad] = useState([]);
@@ -57,7 +62,9 @@ function ShowCategory() {
             <Card>
               <Card.Img
                 variant="top"
-                src={linkI[index]}
+                src={
+                  "https://drive.google.com/uc?export=view&id=" + fakeImg[index]
+                }
                 style={{ maxHeight: "50vh", maxWidth: "100%" }}
               />
               <Card.Body>

@@ -37,10 +37,25 @@ function CommentSection() {
   const contentC = useRef(null);
   async function submitComment() {
     //id image, id avatar, username, content
-    console.log(imgID);
-    console.log(getCookie("imgavatar"));
-    console.log(getCookie("usr"));
-    console.log(contentC.current.value);
+    // console.log(imgID);
+    // console.log(getCookie("imgavatar"));
+    // console.log(getCookie("usr"));
+    // console.log(contentC.current.value);
+
+    setImg((prevArray) => [...prevArray, getCookie("imgavatar")]);
+    setName((prevArray) => [...prevArray, getCookie("usr")]);
+    setDes((prevArray) => [...prevArray, contentC.current.value]);
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    let fullDate = date + "/" + month + "/" + year;
+    console.log(fullDate);
+    setDate((prevArray) => [...prevArray, fullDate]);
+    //console.log(imageData);
+    console.log(nameData);
+    //console.log(dateData);
+    //console.log(desData);
     await sendComment(
       imgID,
       getCookie("imgavatar"),
@@ -119,15 +134,21 @@ function CommentSection() {
   return (
     <>
       <CommentBox isLoggedIn={getCookie("logged")} />
-      <div style={{ padding: "2vh" }}>
-        {imageData.map((linkT, index) => (
+      <div style={{ padding: "3%" }}>
+        {nameData.map((linkT, index) => (
           <>
             <Card
               style={{ backgroundColor: "#232946", color: "white" }}
               className="border-0"
             >
               <Card.Title>
-                <img src={linkT} id="avatarComment" />
+                <img
+                  src={
+                    "https://drive.google.com/uc?export=view&id=" +
+                    imageData[index]
+                  }
+                  id="avatarComment"
+                />
                 <text> </text>
                 {nameData[index]}
                 <text> </text>

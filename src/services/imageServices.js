@@ -14,7 +14,7 @@ const uploadImage =(afile,fileName,tag)=>{
 }
 
 const readCategoriesApi = ()=>{
-    return axios.post('/category/read')
+    return axios.get('category/read',{});
 }
 
 const sendComment = (idImage, idAvatar, username, content)=>{
@@ -24,7 +24,7 @@ const likeImage = (idImage) =>{
     return axios.post('image/like', {"idImage": idImage});
 }
 const starImage = (idImage) =>{
-    return axios.post('image/like', {"idImage": idImage});
+    return axios.post('image/star', {"idImage": idImage});
 }
 const searchApi = (searchKey) =>{
     console.log('search/'+searchKey);
