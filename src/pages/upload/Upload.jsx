@@ -38,9 +38,9 @@ function Upload() {
     }, 'base64' );
 });
 
-  const changeHandler = async(e) => {
+  const changeHandler = (e) => {
     const afile = e.target.files[0];
-    const image = await resizeFile(afile);
+    const image = resizeFile(afile);
     if (!afile.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
       return;
@@ -140,7 +140,7 @@ function Upload() {
     )
     try {
       const response = await axios.post("upload/", formData);
-      const response1= await axios.post("upload/",alternativeForm);
+      const response1= await axios.post("upload/",alternativeForm)
     } catch (error) {
       console.log(error)      
     }
