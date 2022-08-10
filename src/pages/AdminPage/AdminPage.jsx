@@ -59,7 +59,18 @@ function AdminPage() {
         {imgID.map((linkT, index) => (
           <>
             <Row>
-              <Col id="divCol">{url + imgID[index].id}</Col>
+              <Col id="divCol">
+                {/* {url + imgID[index].id} */}
+                <a href={url + imgID[index].id}>
+                  <img
+                    src={
+                      "https://drive.google.com/uc?export=view&id=" +
+                      imgID[index].id
+                    }
+                    style={{ maxWidth: "50%" }}
+                  />
+                </a>
+              </Col>
               <Col id="divCol">{imgID[index].numberOfReports}</Col>
               <Col id="divCol">
                 <Button id="btnS">Delete</Button>

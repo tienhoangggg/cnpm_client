@@ -29,12 +29,14 @@ export default function Login() {
   async function handleLogin() {
     try {
       let data = await handleLoginApi(username, password);
+      console.log(data);
       if (data.status === "success") {
         setCookie("usr", username);
         setCookie("logged", 1);
         setCookie("usrid", data.user.id);
         setCookie("imgavatar", data.user.image);
-        // setCookie("token", data.token);
+        //setCookie("token", data.token);
+        setCookie("userRole", data.user.role);
         toast.dark("Logged in as " + username);
         let usrId = getCookie("usrid");
         const Imagedata = await handleGetProfileApi(usrId);
