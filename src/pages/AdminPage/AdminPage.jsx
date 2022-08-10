@@ -19,11 +19,13 @@ import FooterWibu from "../../components/FooterWibu";
 import NavbarWibu from "../../components/NavbarWibu";
 import dataTest from "./testData";
 import React, { useEffect, useState } from "react";
-import { getRandomImageApi } from "../../services/imageServices";
+import { getDataImg, getRandomImageApi } from "../../services/imageServices";
 
 function AdminPage() {
   const [imgID, setimgID] = useState([]);
-
+  const [numberOfReport, setRP] = useState([]);
+  let [tempVal, setTempVal] = useState(0);
+  const [wtf, setWtf] = useState([0]);
   //const numberOfReport = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   // const imgID = [
   //   "19hEWuwRILVFcDOBF9sq5yTnrjS8sydN5",
@@ -38,15 +40,29 @@ function AdminPage() {
   //   "1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
   // ];
   let url = `${window.location.origin.toString()}/showImage/`;
-
+  async function getRP(imgID) {
+    const dataI = await getDataImg(imgID);
+    setTempVal(dataI.image.numOfReport);
+    //console.log(dataI.image.numOfReport);
+    return tempVal;
+  }
   async function testF() {
     const data = await getRandomImageApi("anime", "", "like", "10");
     setimgID(data);
-    console.log(data);
+    //console.log(data);
   }
   useEffect(() => {
     testF();
+    let tempArr = [0];
+    for (var i = 0; i < imgID.length - 1; i++) {
+      tempArr.push(0);
+    }
+    console.log(tempArr);
+    setWtf([1]);
   }, []);
+  useEffect(() => {
+    console.log(imgID);
+  }, wtf);
   return (
     <>
       <NavbarWibu />
@@ -71,7 +87,7 @@ function AdminPage() {
                   />
                 </a>
               </Col>
-              <Col id="divCol">{imgID[index].numberOfReports}</Col>
+              <Col id="divCol">{imgID[index].numberOfReport}</Col>
               <Col id="divCol">
                 <Button id="btnS">Delete</Button>
               </Col>
