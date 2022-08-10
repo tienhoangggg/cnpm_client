@@ -1,42 +1,54 @@
-import axios from '../../axios';
+import axios from "../../axios";
 import React from "react";
-import "./upload.css"
-import FooterWibu from '../../components/FooterWibu';
-import Select from 'react-select';
+import "./upload.css";
+import FooterWibu from "../../components/FooterWibu";
+import Select from "react-select";
 import Resizer from "react-image-file-resizer";
 import NavbarWibu from "../../components/NavbarWibu";
-import { useEffect, useState, useCallback } from 'react';
-import { toast } from 'react-toastify';
-import { getCate } from '../../services/imageServices';
+import { useEffect, useState, useCallback } from "react";
+import { toast } from "react-toastify";
+import { getCate } from "../../services/imageServices";
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 const categoryOption = [
   {
-    value: 'anime', label: 'Anime'
+    value: "anime",
+    label: "Anime",
   },
   {
-    value: 'girl anime', label: 'Girl Anime'
+    value: "girl anime",
+    label: "Girl Anime",
   },
   {
-    value: 'boy anime', label: 'Boy Anime'
+    value: "boy anime",
+    label: "Boy Anime",
   },
-]
+];
 
 function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [category, setCategory] = useState([])
-  const [text,setText]=useState("")
-  const [alternativeFile,setAlternativeFile]=useState(null);
+  const [category, setCategory] = useState([]);
+  const [text, setText] = useState("");
+  const [alternativeFile, setAlternativeFile] = useState(null);
   //const [categoryOption,setCategoryOption]=useState([]);
-  const [selectValue, setSelectValue] = useState(null); 
-  const name=useState("");
+  const [selectValue, setSelectValue] = useState(null);
+  const name = useState("");
 
-  const resizeFile = (afile) => new Promise(resolve => {
-    Resizer.imageFileResizer(afile, 300, 300, 'JPEG', 100, 0,
-    uri => {
-      resolve(uri);
-    }, 'base64' );
-});
+  const resizeFile = (afile) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        afile,
+        300,
+        300,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
 
   const changeHandler = (e) => {
     const afile = e.target.files[0];
@@ -47,17 +59,18 @@ function Upload() {
     }
     setFile(afile);
     setAlternativeFile(image);
-  }
+  };
   useEffect(() => {
-    let fileReader, isCancel = false;
+    let fileReader,
+      isCancel = false;
     if (afile) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
         const { result } = e.target;
         if (result && !isCancel) {
-          setFileDataURL(result)
+          setFileDataURL(result);
         }
-      }
+      };
       fileReader.readAsDataURL(afile);
     }
     return () => {
@@ -65,30 +78,20 @@ function Upload() {
       if (fileReader && fileReader.readyState === 1) {
         fileReader.abort();
       }
-    }
-
+    };
   }, [afile]);
 
-  
-
-  
-  function checkCate()
-  {
-    if (category.length<1)
-    {
-        toast.dark("Category cannot less than 1");
-        return false
-    }
-    else 
-    return true
+  function checkCate() {
+    if (category.length < 1) {
+      toast.dark("Category cannot less than 1");
+      return false;
+    } else return true;
   }
 
-
-//const cateOp=async()=>{
-  //const cateName=await getCate(name)repo_clone $ vi file
+  //const cateOp=async()=>{
+  //const cateName=await getCate(name)
   //setCategoryOption(name);
-//}
-
+  //}
 
   const handleSubmission = async () => {
     if (!checkCate()) {
@@ -96,127 +99,106 @@ function Upload() {
     }
 
     const formData = new FormData();
-    const alternativeForm=new FormData();
-    formData.append(
-      'file',
-      afile,
-    )
+    const alternativeForm = new FormData();
+    formData.append("file", afile);
+
+    formData.append("fileName", afile.name);
 
     formData.append(
-      'fileName',
-      afile.name
-    )
-
-    formData.append(
-      'category',
-      category.map(cate => {
-        return cate.value
+      "category",
+      category.map((cate) => {
+        return cate.value;
       })
-    )
-    formData.append(
-      'description',
-      text,
-    )
+    );
+    formData.append("description", text);
+
+    alternativeForm.append("file", alternativeFile);
+
+    alternativeForm.append("fileName", alternativeFile.name);
 
     alternativeForm.append(
-      'file',
-      alternativeFile,
-    )
-
-    alternativeForm.append(
-      'fileName',
-      alternativeFile.name
-    )
-
-    alternativeForm.append(
-      'category',
-      category.map(cate => {
-        return cate.value
+      "category",
+      category.map((cate) => {
+        return cate.value;
       })
-    )
-    alternativeForm.append(
-      'description',
-      text,
-    )
+    );
+    alternativeForm.append("description", text);
     try {
       const response = await axios.post("upload/", formData);
-      const response1= await axios.post("upload/",alternativeForm)
+      const response1 = await axios.post("upload/", alternativeForm);
     } catch (error) {
-      console.log(error)      
+      console.log(error);
     }
-    window.location.reload(false); 
-  }
+    window.location.reload(false);
+  };
 
-
-  const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
+  const imageStyles = { maxWidth: "10rem", maxHeight: "10rem" };
   function ShowSquare(props) {
     const fileDataURL = props.urlimage;
-    if (fileDataURL&& afile) {
+    if (fileDataURL && afile) {
       return (
         <div className="img-preview-wrapper">
-          {
-            <img
-              src={fileDataURL} alt="preview" id="imgUpload" />
-          }
-           
+          {<img src={fileDataURL} alt="preview" id="imgUpload" />}
         </div>
       );
     } else {
       return (
         <>
-          <div  className='uploadZone' >
+          <div className="uploadZone">
             <input
               type="file"
-              id='image'
-              accept='.png, .jpg, .jpeg'
+              id="image"
+              accept=".png, .jpg, .jpeg"
               onChange={changeHandler}
-
             />
           </div>
-
-        </>);
+        </>
+      );
     }
   }
 
   return (
     <>
       <NavbarWibu />
-        <div className="upload-container">
-          <ShowSquare urlimage={fileDataURL} />
+      <div className="upload-container">
+        <ShowSquare urlimage={fileDataURL} />
 
-          <div className="upload__fields">
-            <div className='upload__field'>
-              <p className='upload__field-label'>Write description for the image</p>
-              <input className='upload__field-input' 
-              placeholder="Write description for the image"onChange={(e)=>setText(e.target.value)}/>
-            </div>
-
-            <div className='upload__field'>
-              <p className='upload__field-label'>Select category</p>
-              <Select
-                className='upload__field-select'
-                closeMenuOnSelect={true}
-                defaultValue= {[category[1]]}
-                isMulti
-                name="category"
-                onChange={(e) => setCategory(e)}
-                options={categoryOption}
-                isClearable
-                // className="basic-multi-select"
-                classNamePrefix="select"
-            
-                />
-            </div>
-            <div className='submit-button'>
-            <button onClick={(e)=>setFile(e.target.value=null)}>Cancel</button>
-            <button onClick={handleSubmission} >Submit</button>
-          
-            </div>
-      
+        <div className="upload__fields">
+          <div className="upload__field">
+            <p className="upload__field-label">
+              Write description for the image
+            </p>
+            <input
+              className="upload__field-input"
+              placeholder="Write description for the image"
+              onChange={(e) => setText(e.target.value)}
+            />
           </div>
 
+          <div className="upload__field">
+            <p className="upload__field-label">Select category</p>
+            <Select
+              className="upload__field-select"
+              closeMenuOnSelect={true}
+              defaultValue={[category[1]]}
+              isMulti
+              name="category"
+              onChange={(e) => setCategory(e)}
+              options={categoryOption}
+              isClearable
+              // className="basic-multi-select"
+              classNamePrefix="select"
+            />
+          </div>
+          <div className="submit-button">
+            <button onClick={(e) => setFile((e.target.value = null))}>
+              Cancel
+            </button>
+            <button onClick={handleSubmission}>Submit</button>
+          </div>
         </div>
-      <FooterWibu/>
+      </div>
+      <FooterWibu />
     </>
   );
 }

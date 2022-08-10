@@ -32,4 +32,7 @@ const searchApi = (searchKey) =>{
 const getCate =(cateName)=>{
     return axios.post('getcate/',{"cateName":cateName})
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate}
+const getDataImg = (idImage)=>{
+    return axios.get('image/getImage/'+idImage);
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg}

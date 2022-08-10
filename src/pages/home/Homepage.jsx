@@ -15,6 +15,7 @@ import axios from "axios";
 function Homepage() {
   // const [idArray, setArray] = useState("");
   let url = `${window.location.origin.toString()}/showImage/`;
+  setCookie("backPage", "");
   //let url2 = `${window.location.origin.toString()}/morePage/`;
   // let imgID=[];
   // async function GetArray() {
