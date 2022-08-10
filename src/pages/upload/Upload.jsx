@@ -85,7 +85,7 @@ function Upload() {
 
 
 //const cateOp=async()=>{
-  //const cateName=await getCate(name)
+  //const cateName=await getCate(name)repo_clone $ vi file
   //setCategoryOption(name);
 //}
 
