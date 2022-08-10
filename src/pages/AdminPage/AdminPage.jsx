@@ -49,20 +49,12 @@ function AdminPage() {
   async function testF() {
     const data = await getRandomImageApi("anime", "", "like", "10");
     setimgID(data);
+    console.log(data);
     //console.log(data);
   }
   useEffect(() => {
     testF();
-    let tempArr = [0];
-    for (var i = 0; i < imgID.length - 1; i++) {
-      tempArr.push(0);
-    }
-    console.log(tempArr);
-    setWtf([1]);
   }, []);
-  useEffect(() => {
-    console.log(imgID);
-  }, wtf);
   return (
     <>
       <NavbarWibu />
@@ -87,7 +79,7 @@ function AdminPage() {
                   />
                 </a>
               </Col>
-              <Col id="divCol">{imgID[index].numberOfReport}</Col>
+              <Col id="divCol">{imgID[index].numOfReport}</Col>
               <Col id="divCol">
                 <Button id="btnS">Delete</Button>
               </Col>
