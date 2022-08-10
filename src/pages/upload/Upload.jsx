@@ -27,6 +27,7 @@ const categoryOption = [
 function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
+  const [fileDataURL1, setFileDataURL1] = useState(null);
   const [category, setCategory] = useState([]);
   const [text, setText] = useState("");
   const [alternativeFile, setAlternativeFile] = useState(null);
@@ -50,15 +51,19 @@ function Upload() {
       );
     });
 
-  const changeHandler = (e) => {
-    const afile = e.target.files[0];
-    const image = resizeFile(afile);
-    if (!afile.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(afile);
-    setAlternativeFile(image);
+  const changeHandler = async (e) => {
+    // const afile = e.target.files[0];
+    // const image = resizeFile(afile);
+    // if (!afile.type.match(imageMimeType)) {
+    //   alert("Image mime type is not valid");
+    //   return;
+    // }
+    // setFile(afile);
+    // setAlternativeFile(image);
+
+    const image = e.target.files[0];
+    setFile(image);
+    setAlternativeFile(await resizeImage(image, 300, 300));
   };
   useEffect(() => {
     let fileReader,
@@ -69,6 +74,7 @@ function Upload() {
         const { result } = e.target;
         if (result && !isCancel) {
           setFileDataURL(result);
+          
         }
       };
       fileReader.readAsDataURL(afile);
@@ -80,6 +86,9 @@ function Upload() {
       }
     };
   }, [afile]);
+
+
+ 
 
   function checkCate() {
     if (category.length < 1) {
@@ -166,7 +175,7 @@ function Upload() {
         <div className="upload__fields">
           <div className="upload__field">
             <p className="upload__field-label">
-              Write description for the image
+               Description
             </p>
             <input
               className="upload__field-input"
@@ -203,3 +212,20 @@ function Upload() {
   );
 }
 export default Upload;
+
+function resizeImage(image, width, height) {
+  return new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      image,
+      width,
+      height,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "base64"
+    );
+  });
+}
