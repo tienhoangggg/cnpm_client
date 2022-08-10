@@ -30,10 +30,12 @@ import { sendComment } from "../../services/imageServices";
 import { likeImage } from "../../services/imageServices";
 import { starImage } from "../../services/imageServices";
 import getCookie from "../../hooks/getCookie";
+import setCookie from "../../hooks/setCookie";
 function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
   let url = `${window.location.origin.toString()}/showImage/`;
+  setCookie("backPage", imgID);
   const linkDrive = "https://drive.google.com/uc?export=view&id=";
   //let data = await showImageApi({ imgID });
   //console.log(imgID);
@@ -82,6 +84,93 @@ function ShowImage() {
     console.log(data);
     setStarN(starN + 1);
   }
+  function warningLogin() {
+    toast.dark("Please login/register to use this function");
+  }
+  function UtilityBar(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn == 1) {
+      return (
+        <div className="utilityBar">
+          <FaThumbsUp
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => likeImg()}
+          />
+          &nbsp;&nbsp;
+          <div style={{ color: "white", display: "inline" }}>{likeN}</div>
+          {/* {data.like} */}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaRegStar
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => starImg()}
+          />
+          &nbsp;&nbsp;
+          <div style={{ color: "white", display: "inline" }}>{starN}</div>
+          {/* {data.star} */}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href={"https://drive.google.com/uc?export=download&id=" + imgID}>
+            <FaDownload className="icon" size={25} color={"#EEBBC3"} />
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaShareAlt
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => {
+              navigator.clipboard.writeText(url + imgID);
+              toast.dark("Copied to clipboard");
+            }}
+          />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="utilityBar">
+          <FaThumbsUp
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => warningLogin()}
+          />
+          &nbsp;&nbsp;
+          <div style={{ color: "white", display: "inline" }}>{likeN}</div>
+          {/* {data.like} */}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaRegStar
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => warningLogin()}
+          />
+          &nbsp;&nbsp;
+          <div style={{ color: "white", display: "inline" }}>{starN}</div>
+          {/* {data.star} */}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href={"https://drive.google.com/uc?export=download&id=" + imgID}>
+            <FaDownload className="icon" size={25} color={"#EEBBC3"} />
+          </a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaShareAlt
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => {
+              navigator.clipboard.writeText(url + imgID);
+              toast.dark("Copied to clipboard");
+            }}
+          />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
+        </div>
+      );
+    }
+  }
   useEffect(() => {
     getData();
   }, []);
@@ -95,43 +184,7 @@ function ShowImage() {
         id="idShowImage"
       />
       <div id="titleText">This is a test title</div>
-      <div className="utilityBar">
-        <FaThumbsUp
-          className="icon"
-          size={25}
-          color={"#EEBBC3"}
-          onClick={() => likeImg()}
-        />
-        &nbsp;&nbsp;
-        <div style={{ color: "white", display: "inline" }}>{likeN}</div>
-        {/* {data.like} */}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FaRegStar
-          className="icon"
-          size={25}
-          color={"#EEBBC3"}
-          onClick={() => starImg()}
-        />
-        &nbsp;&nbsp;
-        <div style={{ color: "white", display: "inline" }}>{starN}</div>
-        {/* {data.star} */}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href={"https://drive.google.com/uc?export=download&id=" + imgID}>
-          <FaDownload className="icon" size={25} color={"#EEBBC3"} />
-        </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FaShareAlt
-          className="icon"
-          size={25}
-          color={"#EEBBC3"}
-          onClick={() => {
-            navigator.clipboard.writeText(url + imgID);
-            toast.dark("Copied to clipboard");
-          }}
-        />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
-      </div>
+      <UtilityBar isLoggedIn={getCookie("logged")} />
       <br />
       <div style={{ padding: "3rem" }}>
         <Card className="descriptionBox">

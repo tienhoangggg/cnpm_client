@@ -1,29 +1,32 @@
-import axios from '../../axios';
+import axios from "../../axios";
 import React from "react";
-import "./upload.css"
-import FooterWibu from '../../components/FooterWibu';
-import Select from 'react-select';
+import "./upload.css";
+import FooterWibu from "../../components/FooterWibu";
+import Select from "react-select";
 import NavbarWibu from "../../components/NavbarWibu";
-import { useEffect, useState, useCallback } from 'react';
-import { toast } from 'react-toastify';
-import Layout from '../layout/Layout';
+import { useEffect, useState, useCallback } from "react";
+import { toast } from "react-toastify";
+import Layout from "../layout/Layout";
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 const categoryOption = [
   {
-    value: 'anime', label: 'Anime'
+    value: "anime",
+    label: "Anime",
   },
   {
-    value: 'girl anime', label: 'Girl Anime'
+    value: "girl anime",
+    label: "Girl Anime",
   },
   {
-    value: 'boy anime', label: 'Boy Anime'
+    value: "boy anime",
+    label: "Boy Anime",
   },
-]
+];
 
 function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState([]);
   const changeHandler = (e) => {
     const afile = e.target.files[0];
     if (!afile.type.match(imageMimeType)) {
@@ -31,17 +34,18 @@ function Upload() {
       return;
     }
     setFile(afile);
-  }
+  };
   useEffect(() => {
-    let fileReader, isCancel = false;
+    let fileReader,
+      isCancel = false;
     if (afile) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
         const { result } = e.target;
         if (result && !isCancel) {
-          setFileDataURL(result)
+          setFileDataURL(result);
         }
-      }
+      };
       fileReader.readAsDataURL(afile);
     }
     return () => {
@@ -49,24 +53,17 @@ function Upload() {
       if (fileReader && fileReader.readyState === 1) {
         fileReader.abort();
       }
-    }
-
+    };
   }, [afile]);
 
-  
-
   const handleTag = () => {
-    <Select options={categoryOption} />
-  }
-  function checkCate()
-  {
-    if (category.length<1)
-    {
-        toast.dark("Category cannot less than 1");
-        return false
-    }
-    else 
-    return true
+    <Select options={categoryOption} />;
+  };
+  function checkCate() {
+    if (category.length < 1) {
+      toast.dark("Category cannot less than 1");
+      return false;
+    } else return true;
   }
 
   const handleSubmission = async () => {
@@ -75,99 +72,88 @@ function Upload() {
     }
 
     const formData = new FormData();
-   
-    formData.append(
-      'file',
-      afile,
-    )
+
+    formData.append("file", afile);
+
+    formData.append("fileName", afile.name);
 
     formData.append(
-      'fileName',
-      afile.name
-    )
-
-    formData.append(
-      'category',
-      category.map(cate => {
-        return cate.value
+      "category",
+      category.map((cate) => {
+        return cate.value;
       })
-    )
+    );
 
     try {
       const response = await axios.post("upload/", formData);
     } catch (error) {
-      console.log(error)      
+      console.log(error);
     }
-    // window.location.reload(false); 
-  }
-  const imageStyles = { maxWidth: '10rem', maxHeight: '10rem' };
+    // window.location.reload(false);
+  };
+  const imageStyles = { maxWidth: "10rem", maxHeight: "10rem" };
   function ShowSquare(props) {
     const fileDataURL = props.urlimage;
-    if (fileDataURL&& afile) {
+    if (fileDataURL && afile) {
       return (
         <div className="img-preview-wrapper">
-          {
-            <img
-              src={fileDataURL} alt="preview" id="imgUpload" />
-          }
-           
+          {<img src={fileDataURL} alt="preview" id="imgUpload" />}
         </div>
       );
     } else {
       return (
         <>
-          <div  className='uploadZone' >
+          <div className="uploadZone">
             <input
               type="file"
-              id='image'
-              accept='.png, .jpg, .jpeg'
+              id="image"
+              accept=".png, .jpg, .jpeg"
               onChange={changeHandler}
-
             />
           </div>
-
-        </>);
+        </>
+      );
     }
   }
 
   return (
     <>
       <NavbarWibu />
-        <div className="upload-container">
-          <ShowSquare urlimage={fileDataURL} />
+      <div className="upload-container">
+        <ShowSquare urlimage={fileDataURL} />
 
-          <div className="upload__fields">
-            <div className='upload__field'>
-              <p className='upload__field-label'>Write description for the image</p>
-              <input className='upload__field-input'></input>
-            </div>
-
-            <div className='upload__field'>
-              <p className='upload__field-label'>Select category</p>
-              <Select
-                className='upload__field-select'
-                closeMenuOnSelect={true}
-                defaultValue= {[category[1]]}
-                isMulti
-                name="category"
-                onChange={(e) => setCategory(e)}
-                options={categoryOption}
-                isClearable
-                // className="basic-multi-select"
-                classNamePrefix="select"
-            
-                />
-            </div>
-            <div className='submit-button'>
-            <button onClick={(e)=>setFile(e.target.value=null)}>Cancel</button>
-            <button onClick={handleSubmission} >Submit</button>
-          
-            </div>
-      
+        <div className="upload__fields">
+          <div className="upload__field">
+            <p className="upload__field-label">
+              Write description for the image
+            </p>
+            <input className="upload__field-input"></input>
           </div>
 
+          <div className="upload__field">
+            <p className="upload__field-label">Select category</p>
+            <Select
+              className="upload__field-select"
+              closeMenuOnSelect={true}
+              defaultValue={[category[1]]}
+              isMulti
+              name="category"
+              onChange={(e) => setCategory(e)}
+              options={categoryOption}
+              isClearable
+              // className="basic-multi-select"
+              classNamePrefix="select"
+            />
+          </div>
+          <div className="submit-button">
+            <button onClick={(e) => setFile((e.target.value = null))}>
+              Cancel
+            </button>
+            <button onClick={handleSubmission}>Submit</button>
+          </div>
         </div>
-      <FooterWibu/>
+      </div>
+      <FooterWibu />
     </>
   );
 }
