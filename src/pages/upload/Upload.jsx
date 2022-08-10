@@ -3,10 +3,11 @@ import React from "react";
 import "./upload.css";
 import FooterWibu from "../../components/FooterWibu";
 import Select from "react-select";
+import Resizer from "react-image-file-resizer";
 import NavbarWibu from "../../components/NavbarWibu";
 import { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
-import Layout from "../layout/Layout";
+import { getCate } from "../../services/imageServices";
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 const categoryOption = [
   {
@@ -27,13 +28,37 @@ function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [category, setCategory] = useState([]);
-  const changeHandler = (e) => {
+  const [text, setText] = useState("");
+  const [alternativeFile, setAlternativeFile] = useState(null);
+  //const [categoryOption,setCategoryOption]=useState([]);
+  const [selectValue, setSelectValue] = useState(null);
+  const name = useState("");
+
+  const resizeFile = (afile) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        afile,
+        300,
+        300,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "base64"
+      );
+    });
+
+  const changeHandler = async (e) => {
     const afile = e.target.files[0];
+    const image = await resizeFile(afile);
     if (!afile.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
       return;
     }
     setFile(afile);
+    setAlternativeFile(image);
   };
   useEffect(() => {
     let fileReader,
@@ -56,9 +81,6 @@ function Upload() {
     };
   }, [afile]);
 
-  const handleTag = () => {
-    <Select options={categoryOption} />;
-  };
   function checkCate() {
     if (category.length < 1) {
       toast.dark("Category cannot less than 1");
@@ -66,13 +88,18 @@ function Upload() {
     } else return true;
   }
 
+  //const cateOp=async()=>{
+  //const cateName=await getCate(name)
+  //setCategoryOption(name);
+  //}
+
   const handleSubmission = async () => {
     if (!checkCate()) {
       return;
     }
 
     const formData = new FormData();
-
+    const alternativeForm = new FormData();
     formData.append("file", afile);
 
     formData.append("fileName", afile.name);
@@ -83,14 +110,28 @@ function Upload() {
         return cate.value;
       })
     );
+    formData.append("description", text);
 
+    alternativeForm.append("file", alternativeFile);
+
+    alternativeForm.append("fileName", alternativeFile.name);
+
+    alternativeForm.append(
+      "category",
+      category.map((cate) => {
+        return cate.value;
+      })
+    );
+    alternativeForm.append("description", text);
     try {
       const response = await axios.post("upload/", formData);
+      const response1 = await axios.post("upload/", alternativeForm);
     } catch (error) {
       console.log(error);
     }
-    // window.location.reload(false);
+    window.location.reload(false);
   };
+
   const imageStyles = { maxWidth: "10rem", maxHeight: "10rem" };
   function ShowSquare(props) {
     const fileDataURL = props.urlimage;
@@ -127,7 +168,11 @@ function Upload() {
             <p className="upload__field-label">
               Write description for the image
             </p>
-            <input className="upload__field-input"></input>
+            <input
+              className="upload__field-input"
+              placeholder="Write description for the image"
+              onChange={(e) => setText(e.target.value)}
+            />
           </div>
 
           <div className="upload__field">

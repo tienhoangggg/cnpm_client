@@ -11,7 +11,7 @@ const EmailVerify = () => {
 	useEffect(() => {
 		const verifyEmailUrl = async () => {
 			try {
-				const url = `http://localhost:8888/users/verify/${param.token}`;
+				const url = `https://cnpmapi.azurewebsites.net/users/verify/${param.token}`;
 				let { data } = await axios.get(url);
 				console.log(data);
 				setValidUrl(true);
