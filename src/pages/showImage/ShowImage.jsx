@@ -31,6 +31,7 @@ import { likeImage } from "../../services/imageServices";
 import { starImage } from "../../services/imageServices";
 import getCookie from "../../hooks/getCookie";
 import setCookie from "../../hooks/setCookie";
+import { getDataImg } from "../../services/imageServices";
 function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
@@ -68,6 +69,8 @@ function ShowImage() {
   //console.log(CommentArray);
   let [likeN, setLikeN] = useState(0);
   let [starN, setStarN] = useState(0);
+  let [titleImg, setTile] = useState("");
+  let [desImg, setDesImg] = useState("");
   async function getData() {
     const data = await showImageApi(imgID);
     setLikeN(data.like);
@@ -171,8 +174,18 @@ function ShowImage() {
       );
     }
   }
+  async function getDataOfImg() {
+    const data = await getDataImg(imgID);
+    console.log(data);
+    setTile(data.image.imageName);
+    setDesImg(data.image.description);
+    if (data.image.description == null) {
+      setDesImg("No description for this image");
+    }
+  }
   useEffect(() => {
     getData();
+    getDataOfImg();
   }, []);
   return (
     <div id="showImageBody">
@@ -183,18 +196,16 @@ function ShowImage() {
         className="rounded mx-auto d-block"
         id="idShowImage"
       />
-      <div id="titleText">This is a test title</div>
+      <div id="titleText">{titleImg}</div>
       <UtilityBar isLoggedIn={getCookie("logged")} />
       <br />
       <div style={{ padding: "3rem" }}>
         <Card className="descriptionBox">
           <Card.Body>
-            <Card.Title>Description</Card.Title>
+            {/* <Card.Title>Description</Card.Title>
             <Card.Text>Uploader:</Card.Text>
-            <Card.Text>Id:</Card.Text>
-            <Card.Text>
-              This is a good image i want to share with every one
-            </Card.Text>
+            <Card.Text>Id:</Card.Text> */}
+            <Card.Text>{desImg}</Card.Text>
           </Card.Body>
         </Card>
       </div>
