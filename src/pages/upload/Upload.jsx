@@ -43,7 +43,7 @@ function Upload() {
     const image = resizeFile(afile);
     if (!afile.type.match(imageMimeType)) {
       alert("Image mime type is not valid");
-      return;
+      return;g
     }
     setFile(afile);
     setAlternativeFile(image);
