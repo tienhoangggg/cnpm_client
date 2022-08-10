@@ -121,9 +121,9 @@ function Upload() {
     );
     formData.append("description", text);
 
-    alternativeForm.append("file", alternativeFile);
+    alternativeForm.append("file", { uri: alternativeFile });
 
-    alternativeForm.append("fileName", alternativeFile.name);
+    alternativeForm.append("fileName", { uri: alternativeFile.name });
 
     alternativeForm.append(
       "category",
