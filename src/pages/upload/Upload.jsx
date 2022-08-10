@@ -61,9 +61,10 @@ function Upload() {
     // setFile(afile);
     // setAlternativeFile(image);
 
-    const image = e.target.files[0];
-    setFile(image);
-    setAlternativeFile(await resizeImage(image, 300, 300));
+    const fileo = e.target.files[0];
+    setFile(fileo);
+    const image = await resizeFile(fileo);
+    setAlternativeFile(image);
   };
   useEffect(() => {
     let fileReader,
@@ -138,6 +139,7 @@ function Upload() {
     } catch (error) {
       console.log(error);
     }
+    toast.dark("Upload success");
     window.location.reload(false);
   };
 
@@ -213,19 +215,3 @@ function Upload() {
 }
 export default Upload;
 
-function resizeImage(image, width, height) {
-  return new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      image,
-      width,
-      height,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "base64"
-    );
-  });
-}
