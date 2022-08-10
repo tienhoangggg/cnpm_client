@@ -12,4 +12,7 @@ const uploadImage =(afile,fileName,tag)=>{
     return axios.post('upload/',{"file":afile,"fileName":fileName,"tag":tag})
 }
 
-export { showImageApi, getRandomImageApi,uploadImage}
+const getCate =(cateName)=>{
+    return axios.post('getcate/',{"cateName":cateName})
+}
+export { showImageApi, getRandomImageApi,uploadImage,getCate}
