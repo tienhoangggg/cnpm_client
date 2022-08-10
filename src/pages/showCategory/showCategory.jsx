@@ -33,10 +33,14 @@ function ShowCategory() {
   //   "https://drive.google.com/uc?export=view&id=1z1R4pttq4Tz_t5tRzZq7LBbvMgK971k5",
   //   "https://drive.google.com/uc?export=view&id=1ZS6bffKrJtOMspWYaL-yrwYSeGAnYRTK",
   // ];
+  let url = `${window.location.origin.toString()}/showimageforcategory/`;
   const [fakeImg, setFake] = useState([
     "1fipnVaWn4BMMRry8CAmWgtmRXC2ltO7q",
     "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
     "1TAso8UAO-mrXRi7CLNpo8gKbTRkVdZ2o",
+    "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
+    "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
+    "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
   ]);
   const [textData, setTextData] = useState([]);
   const [linkI, setImg] = useState([]);
@@ -59,23 +63,29 @@ function ShowCategory() {
       <Row xs={1} md={2} className="g-4">
         {textData.map((titleT, index) => (
           <Col>
-            <Card>
-              <Card.Img
-                variant="top"
-                src={
-                  "https://drive.google.com/uc?export=view&id=" + fakeImg[index]
-                }
-                style={{ maxHeight: "50vh", maxWidth: "100%" }}
-              />
-              <Card.Body>
-                <Card.Title>{titleT}</Card.Title>
-                <Card.Text>
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </Card.Text>
-              </Card.Body>
-            </Card>
+            <a
+              href={url + titleT}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Card>
+                <Card.Img
+                  variant="top"
+                  src={
+                    "https://drive.google.com/uc?export=view&id=" +
+                    fakeImg[index]
+                  }
+                  style={{ maxHeight: "50vh", maxWidth: "100%" }}
+                />
+                <Card.Body>
+                  <Card.Title>{titleT}</Card.Title>
+                  <Card.Text>
+                    This is a longer card with supporting text below as a
+                    natural lead-in to additional content. This content is a
+                    little bit longer.
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </a>
           </Col>
         ))}
       </Row>

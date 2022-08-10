@@ -77,7 +77,7 @@ function Profile() {
                     style={{ width: "150px" }}
                   >
                     <img
-                      src="https://drive.google.com/file/d/1a5fg9ku_cWGrpUueTVwfzEJtkiaXhpP6/view?usp=sharing"
+                      src="https://drive.google.com/uc?export=view&id=1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs"
                       alt="Generic placeholder image"
                       className="img-fluid img-thumbnail mt-4 mb-2"
                       style={{ width: "100px", zIndex: "1" }}
