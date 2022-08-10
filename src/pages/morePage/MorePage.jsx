@@ -1,47 +1,41 @@
-import React, { useState, useEffect } from "react";
 import { Button, Navbar, ListGroup, Dropdown, Carousel } from "react-bootstrap";
 import logo from "../../assets/images/logo.png";
 import welcome from "../../assets/images/welcome.png";
-import "./resultSearch.css";
+import "./MorePage.css";
 import { Link, useParams } from "react-router-dom";
 import setCookie from "../../hooks/setCookie";
 import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
 import FooterWibu from "../../components/FooterWibu";
 import NavbarWibu from "../../components/NavbarWibu";
+import { getRandomImageApi } from "../../services/imageServices";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { searchApi } from "../../services/imageServices";
-function ResultSearch() {
-  const { keySearch } = useParams();
-  console.log(keySearch);
-  //const [imgID, setImg] = useState([]);
-  //const urlS = `https://cnpmapi.azurewebsites.net/search/${keySearch}`;
-  //let imgArr = await axios.get(urlS);
+function MorePage() {
+  let { categoryname } = useParams();
+  console.log(categoryname);
   let url = `${window.location.origin.toString()}/showImage/`;
-  //[{ id: "jahdwhjdjhawhdkawd" }, { id: "hagwdhjagdhjhawgd" }];
-  let [imgArr, setImg] = useState([]);
-  const [initVal, setInit] = useState([]);
+  const [testArr, setTest] = useState([]);
   async function fetchData() {
-    const data = await searchApi(keySearch);
+    const data = await getRandomImageApi(categoryname, "month", "like", "20");
     console.log(data);
-    setImg(data.data);
-    //console.log(imgArr.data[0].id);
+    setTest(testArr);
   }
   useEffect(() => {
     fetchData();
-  }, initVal);
+  }, []);
   return (
     <>
       <NavbarWibu />
+      <a style={{ textDecoration: "none" }} href="" />
       <div className="masonry-with-flex">
-        {imgArr.map((linkT, index) => (
-          <a href={url + imgArr[index].id}>
+        {testArr.map((linkT, index) => (
+          <a href={url + testArr[index].id} key={index}>
             <div>
               <img
                 src={
                   "https://drive.google.com/uc?export=view&id=" +
-                  imgArr[index].id
+                  testArr[index].id
                 }
                 id="anhHomePage"
               />
@@ -49,8 +43,9 @@ function ResultSearch() {
           </a>
         ))}
       </div>
+      <FooterWibu />
     </>
   );
 }
 
-export default ResultSearch;
+export default MorePage;

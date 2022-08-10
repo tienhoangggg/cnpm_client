@@ -15,6 +15,7 @@ import axios from "axios";
 function Homepage() {
   // const [idArray, setArray] = useState("");
   let url = `${window.location.origin.toString()}/showImage/`;
+  //let url2 = `${window.location.origin.toString()}/morePage/`;
   // let imgID=[];
   // async function GetArray() {
   //     let data = await getRandomImageApi("anime,background", "month", "like", "10")
@@ -67,7 +68,7 @@ function Homepage() {
 
   // console.log(ImageArray);
   // console.log(ImageArray[0]);
-
+  const [imgArr, setImg] = useState([]);
   const [testArr, setTestArray] = useState([]);
   async function getLeaderBoards() {
     //Like by month
@@ -124,16 +125,26 @@ function Homepage() {
   }
   async function testF() {
     const data = await getRandomImageApi("background", "", "like", "10");
+    const dataNew = await getRandomImageApi("anime", "", "like", "10");
     setTestArray(data);
+    setImg(dataNew);
     console.log(data);
     getLeaderBoards();
   }
   useEffect(() => {
     testF();
   }, []);
+  //anime
+  //background
   return (
     <>
       <NavbarWibu />
+      <a
+        style={{ textDecoration: "none" }}
+        href="/showimageforcategory/background"
+      >
+        <p style={{ color: "white", padding: "1%" }}>Background</p>
+      </a>
       <div className="masonry-with-flex">
         {testArr.map((linkT, index) => (
           <a href={url + testArr[index].id} key={index}>
@@ -142,6 +153,24 @@ function Homepage() {
                 src={
                   "https://drive.google.com/uc?export=view&id=" +
                   testArr[index].id
+                }
+                id="anhHomePage"
+              />
+            </div>
+          </a>
+        ))}
+      </div>
+      <a style={{ textDecoration: "none" }} href="/showimageforcategory/anime">
+        <p style={{ color: "white", padding: "1%" }}>Anime</p>
+      </a>
+      <div className="masonry-with-flex">
+        {imgArr.map((linkT, index) => (
+          <a href={url + imgArr[index].id} key={index}>
+            <div>
+              <img
+                src={
+                  "https://drive.google.com/uc?export=view&id=" +
+                  imgArr[index].id
                 }
                 id="anhHomePage"
               />

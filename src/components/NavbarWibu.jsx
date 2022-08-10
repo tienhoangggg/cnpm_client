@@ -28,7 +28,7 @@ function NavbarWibu() {
     setCookie("imgArr", data.image);
     //console.log(data.image[0]);
   }
-  
+
   function Profile(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
@@ -50,6 +50,14 @@ function NavbarWibu() {
           Profile
         </Nav.Link>
       );
+    }
+  }
+  function AdminBar(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn == 1) {
+      if (getCookie("userRole") == 1) {
+        return <Nav.Link href={"/adminpage"}>Admin</Nav.Link>;
+      }
     }
   }
   function ProfileBTN(props) {
@@ -125,7 +133,7 @@ function NavbarWibu() {
   }
   return (
     <>
-      <Navbar className="ms-auto navbar-dark" style={{ fontSize: "2.5vh" }}>
+      <Navbar className="ms-auto navbar-dark " style={{ fontSize: "2.5vh" }}>
         <Container fluid>
           <Navbar.Brand href="/home">
             <img
@@ -136,7 +144,7 @@ function NavbarWibu() {
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
+          <Navbar.Collapse id="navbarScroll ">
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
@@ -147,12 +155,13 @@ function NavbarWibu() {
               <ProfileBar isLoggedIn={getCookie("logged")} />
               <LoginNav isLoggedIn={getCookie("logged")} />
               <UploadBar isLoggedIn={getCookie("logged")} />
+              <AdminBar isLoggedIn={getCookie("logged")} />
               <NavDropdown title="More" id="navbarScrollingDropdown">
                 <LogoutList isLoggedIn={getCookie("logged")} />
                 <NavDropdown.Item href="/about">About us</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" style={{ paddingTop: "1.3%" }}>
               <Form.Control
                 type="search"
                 placeholder="Type a name or id"
@@ -165,10 +174,7 @@ function NavbarWibu() {
                 id="btnS"
                 className="btn btn-primary"
                 type="button"
-                href={
-                  "https://wibuwallpaper.azurewebsites.net/resultSearch/" +
-                  searchKey
-                }
+                href={url + searchKey}
               >
                 Search
               </Button>
