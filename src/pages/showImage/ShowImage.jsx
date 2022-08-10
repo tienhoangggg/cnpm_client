@@ -32,6 +32,7 @@ import { starImage } from "../../services/imageServices";
 import getCookie from "../../hooks/getCookie";
 import setCookie from "../../hooks/setCookie";
 import { getDataImg } from "../../services/imageServices";
+import { reportImg } from "../../services/imageServices";
 function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
@@ -71,6 +72,7 @@ function ShowImage() {
   let [starN, setStarN] = useState(0);
   let [titleImg, setTile] = useState("");
   let [desImg, setDesImg] = useState("");
+  let [reportImgNumber, setReportI] = useState(0);
   async function getData() {
     const data = await showImageApi(imgID);
     setLikeN(data.like);
@@ -86,6 +88,11 @@ function ShowImage() {
     const data = await starImage(imgID);
     console.log(data);
     setStarN(starN + 1);
+  }
+  async function reportI() {
+    const data = await reportImg(imgID);
+    console.log(data);
+    setReportI(reportImgNumber + 1);
   }
   function warningLogin() {
     toast.dark("Please login/register to use this function");
@@ -129,7 +136,16 @@ function ShowImage() {
             }}
           />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
+          <FaRegFlag
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => reportI()}
+          />
+          &nbsp;&nbsp;
+          <div style={{ color: "white", display: "inline" }}>
+            {reportImgNumber}
+          </div>
         </div>
       );
     } else {
@@ -169,7 +185,15 @@ function ShowImage() {
             }}
           />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <FaRegFlag className="icon" size={25} color={"#EEBBC3"} />
+          <FaRegFlag
+            className="icon"
+            size={25}
+            color={"#EEBBC3"}
+            onClick={() => warningLogin()}
+          />
+          <div style={{ color: "white", display: "inline" }}>
+            {reportImgNumber}
+          </div>
         </div>
       );
     }
@@ -179,6 +203,7 @@ function ShowImage() {
     console.log(data);
     setTile(data.image.imageName);
     setDesImg(data.image.description);
+    setReportI(data.image.numOfReport);
     if (data.image.description == null) {
       setDesImg("No description for this image");
     }

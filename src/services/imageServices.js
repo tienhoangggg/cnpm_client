@@ -35,4 +35,7 @@ const getCate =(cateName)=>{
 const getDataImg = (idImage)=>{
     return axios.get('image/getImage/'+idImage);
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg}
+const reportImg = (idImage) =>{
+    return axios.post('image/report', {"idImage": idImage})
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg, reportImg}
