@@ -47,7 +47,7 @@ function Upload() {
         (uri) => {
           resolve(uri);
         },
-        "base64"
+        "file"
       );
     });
 
@@ -122,9 +122,9 @@ function Upload() {
     );
     formData.append("description", text);
 
-    alternativeForm.append("file", { uri: alternativeFile });
+    alternativeForm.append("file", alternativeFile);
 
-    alternativeForm.append("fileName", { uri: alternativeFile.name });
+    alternativeForm.append("fileName", alternativeFile.name);
 
     alternativeForm.append(
       "category",
