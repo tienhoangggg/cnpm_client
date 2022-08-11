@@ -139,7 +139,9 @@ function Upload() {
     try {
       const response = await axios.post("upload/", formData);
       const response1 = await axios.post("upload/", alternativeForm);
-      const alter = await axios.post("alternative/add",response.id,response1.id);
+      
+      const alter = await axios.post("alternative/add",response.fileId ,response1.fileId);
+      const alter1 = await axios.post("alternative/add",response1.fileId ,response.fileId);
     } catch (error) {
       console.log(error);
     }
