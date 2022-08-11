@@ -144,8 +144,7 @@ function CommentSection() {
               <Card.Title>
                 <img
                   src={
-                    "https://drive.google.com/uc?export=view&id=" +
-                    imageData[index]
+                    "https://drive.google.com/uc?export=view&id=1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs"
                   }
                   id="avatarComment"
                 />

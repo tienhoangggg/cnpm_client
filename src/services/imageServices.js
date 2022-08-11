@@ -25,6 +25,14 @@ const likeImage = (idImage) =>{
 const starImage = (idImage) =>{
     return axios.post('image/star', {"idImage": idImage});
 }
+const dislikeImage = (idImage) =>{
+    console.log(idImage);
+    return axios.post('image/dislike', {"idImage":idImage});
+}
+const disstarImage = (idImage)=>{
+    console.log(idImage);
+    return axios.post('image/deleteStar', {"idImage":idImage});
+}
 const searchApi = (searchKey) =>{
     console.log('search/'+searchKey);
     return axios.get('search/'+searchKey)
@@ -35,4 +43,20 @@ const getCate =(cateName)=>{
 const getDataImg = (idImage)=>{
     return axios.get('image/getImage/'+idImage);
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, getCategoryValues, searchApi, getCate, getDataImg}
+const reportImg = (idImage) =>{
+    return axios.post('image/report', {"idImage": idImage})
+}
+const deleteImg = (fileId) =>{
+    console.log(fileId);
+    return axios.post('delete', {"fileId": fileId})
+}
+const getStared=()=>{
+    return axios.post('star')
+}
+const checkLikeStar=(idImage)=>{
+    return axios.post('image/check', {"idImage": idImage})
+}
+const getAlternative=(idImageRoot)=>{
+    return axios.post('alternative/get', {"idImageRoot": idImageRoot})
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, getCategoryValues, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative}

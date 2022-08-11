@@ -14,6 +14,7 @@ import LeaderBoard from "./pages/leaderBoard/leaderBoard";
 import ResultSearch from "./pages/resultSearch/resultSearch";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import MorePage from "./pages/morePage/MorePage";
+import StarPage from "./pages/StarPage/StarPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import{toast, ToastContainer} from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
@@ -37,6 +38,7 @@ function App() {
           <Route path="/resultSearch/:keySearch" element={<ResultSearch />}/>
           <Route path="/morePage/:categoryname" element={<MorePage />}/>
           <Route path="/adminpage" element={<AdminPage />}/>
+          <Route path="/starpage" element={<StarPage />}/>
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>

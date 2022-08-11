@@ -77,7 +77,7 @@ function Profile() {
                     style={{ width: "150px" }}
                   >
                     <img
-                      src="https://drive.google.com/file/d/1a5fg9ku_cWGrpUueTVwfzEJtkiaXhpP6/view?usp=sharing"
+                      src="https://drive.google.com/uc?export=view&id=1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs"
                       alt="Generic placeholder image"
                       className="img-fluid img-thumbnail mt-4 mb-2"
                       style={{ width: "100px", zIndex: "1" }}
@@ -101,27 +101,27 @@ function Profile() {
                 >
                   <div className="d-flex justify-content-end text-center py-1">
                     <div>
-                      {/* <p className="mb-1 h5">{testArr.like}</p> */}
+                      <p className="mb-1 h5">
+                        {getCookie("imgArr").split(",").length}
+                      </p>
                       <p className="small text-muted mb-0">Photos</p>
                     </div>
-                    <div className="px-3">
-                      {/* <p className="mb-1 h5">{testArr.like}</p> */}
+                    {/* <div className="px-3">
                       <p className="small text-muted mb-0">Likes</p>
                     </div>
                     <div>
-                      {/* <p className="mb-1 h5">{testArr.star}</p> */}
                       <p className="small text-muted mb-0">Stars</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="card-body p-4 text-black">
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <p className="lead fw-normal mb-0">Recent photos</p>
-                    <p className="mb-0">
+                    {/* <p className="mb-0">
                       <a href="#!" className="text-muted">
                         Show all
                       </a>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
 
