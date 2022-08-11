@@ -37,6 +37,7 @@ function ShowImage() {
   const { imgID } = useParams();
   //console.log(imgID);
   let url = `${window.location.origin.toString()}/showImage/`;
+  let urlUSR = `${window.location.origin.toString()}/profile/`;
   setCookie("backPage", imgID);
   const linkDrive = "https://drive.google.com/uc?export=view&id=";
   //let data = await showImageApi({ imgID });
@@ -72,6 +73,7 @@ function ShowImage() {
   let [starN, setStarN] = useState(0);
   let [titleImg, setTile] = useState("");
   let [desImg, setDesImg] = useState("");
+  let [authorImg, setAuthor] = useState("");
   let [reportImgNumber, setReportI] = useState(0);
   async function getData() {
     const data = await showImageApi(imgID);
@@ -204,6 +206,7 @@ function ShowImage() {
     setTile(data.image.imageName);
     setDesImg(data.image.description);
     setReportI(data.image.numOfReport);
+    setAuthor(data.image.idUser);
     if (data.image.description == null) {
       setDesImg("No description for this image");
     }
@@ -230,6 +233,9 @@ function ShowImage() {
             {/* <Card.Title>Description</Card.Title>
             <Card.Text>Uploader:</Card.Text>
             <Card.Text>Id:</Card.Text> */}
+            <Card.Text>
+              <a href={urlUSR + authorImg}>Author</a>
+            </Card.Text>
             <Card.Text>{desImg}</Card.Text>
           </Card.Body>
         </Card>

@@ -20,7 +20,7 @@ import NavbarWibu from "../../components/NavbarWibu";
 import dataTest from "./testData";
 import React, { useEffect, useState } from "react";
 import { getDataImg, getRandomImageApi } from "../../services/imageServices";
-
+import { deleteImg } from "../../services/imageServices";
 function AdminPage() {
   const [imgID, setimgID] = useState([]);
   const [numberOfReport, setRP] = useState([]);
@@ -47,11 +47,17 @@ function AdminPage() {
     return tempVal;
   }
   async function testF() {
-    const data = await getRandomImageApi("anime", "", "like", "10");
+    const data = await getRandomImageApi("", "", "like", "20");
     setimgID(data);
     console.log(data);
     //console.log(data);
   }
+  async function deleteImgF(thisID) {
+    //console.log(thisID);
+    const data = await deleteImg(thisID);
+    console.log(data);
+  }
+
   useEffect(() => {
     testF();
   }, []);
@@ -65,7 +71,7 @@ function AdminPage() {
           <Col id="divCol">Delete command</Col>
         </Row>
         {imgID.map((linkT, index) => (
-          <>
+          <div key={imgID[index].id}>
             <Row>
               <Col id="divCol">
                 {/* {url + imgID[index].id} */}
@@ -81,10 +87,12 @@ function AdminPage() {
               </Col>
               <Col id="divCol">{imgID[index].numOfReport}</Col>
               <Col id="divCol">
-                <Button id="btnS">Delete</Button>
+                <Button id="btnS" onClick={() => deleteImgF(imgID[index].id)}>
+                  Delete
+                </Button>
               </Col>
             </Row>
-          </>
+          </div>
         ))}
       </Container>
       <FooterWibu />

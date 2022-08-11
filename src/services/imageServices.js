@@ -38,4 +38,8 @@ const getDataImg = (idImage)=>{
 const reportImg = (idImage) =>{
     return axios.post('image/report', {"idImage": idImage})
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg, reportImg}
+const deleteImg = (fileId) =>{
+    console.log(fileId);
+    return axios.post('delete', {"fileId": fileId})
+}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg, reportImg, deleteImg}
