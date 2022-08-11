@@ -60,6 +60,12 @@ function NavbarWibu() {
       }
     }
   }
+  function StarBar(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn == 1) {
+      return <Nav.Link href={"/starpage"}>Stared</Nav.Link>;
+    }
+  }
   function ProfileBTN(props) {
     const isLoggedIn = props.isLoggedIn;
     if (isLoggedIn == 1) {
@@ -153,6 +159,7 @@ function NavbarWibu() {
               <Nav.Link href="/showcategory">Categories</Nav.Link>
               <Nav.Link href="/leaderboards">Leaderboards</Nav.Link>
               <ProfileBar isLoggedIn={getCookie("logged")} />
+              <StarBar isLoggedIn={getCookie("logged")} />
               <LoginNav isLoggedIn={getCookie("logged")} />
               <UploadBar isLoggedIn={getCookie("logged")} />
               <AdminBar isLoggedIn={getCookie("logged")} />
