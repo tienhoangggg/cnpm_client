@@ -12,7 +12,7 @@ const getRandomImageApi = (tags,time,sortby,num) =>{
 const uploadImage =(afile,fileName,tag,description)=>{
     return axios.post('upload/',{"file":afile,"fileName":fileName,"tag":tag,"description":description})
 }
-const readCategoriesApi = ()=>{
+const getCategoryValues = ()=>{
     return axios.get('category/read',{});
 }
 
@@ -61,4 +61,4 @@ const getAlternative=(idImageRoot)=>{
     // console.log("wut");
     return axios.post('alternative/get', {"idImageRoot": idImageRoot})
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, getCategoryValues, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative}
