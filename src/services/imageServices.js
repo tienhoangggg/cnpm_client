@@ -57,6 +57,8 @@ const checkLikeStar=(idImage)=>{
     return axios.post('image/check', {"idImage": idImage})
 }
 const getAlternative=(idImageRoot)=>{
+    console.log(idImageRoot);
+    // console.log("wut");
     return axios.post('alternative/get', {"idImageRoot": idImageRoot})
 }
 export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, readCategoriesApi, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative}

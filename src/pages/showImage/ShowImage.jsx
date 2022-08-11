@@ -88,6 +88,10 @@ function ShowImage() {
     setLikeN(data.like);
     setStarN(data.star);
     console.log(data);
+    const data3 = await getAlternative(imgID);
+    //console.log(data3);
+    setAlternative(data3.idImageAlter);
+    console.log(data3);
   }
   async function likeImg() {
     // const data = await likeImage(imgID);
@@ -251,7 +255,7 @@ function ShowImage() {
   }
   async function getDataOfImg() {
     const data = await getDataImg(imgID);
-    console.log(data);
+    //console.log(data);
     setTile(data.image.imageName);
     setDesImg(data.image.description);
     setReportI(data.image.numOfReport);
@@ -263,11 +267,8 @@ function ShowImage() {
       const data2 = await checkLikeStar(imgID);
       setIsLiked(data2.like);
       setIsStared(data2.star);
-      console.log(data2);
+      //console.log(data2);
     }
-    const data3 = await getAlternative(imgID);
-    //console.log(data3);
-    setAlternative(data3.idImageAlter);
     //console.log(alternativeID.length);
   }
   useEffect(() => {
