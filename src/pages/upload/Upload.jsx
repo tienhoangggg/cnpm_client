@@ -7,33 +7,45 @@ import Resizer from "react-image-file-resizer";
 import NavbarWibu from "../../components/NavbarWibu";
 import { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
-import { getCate } from "../../services/imageServices";
+import { getCategoryValues } from '../../services/imageServices';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
-const categoryOption = [
-  {
-    value: "anime",
-    label: "Anime",
-  },
-  {
-    value: "girl anime",
-    label: "Girl Anime",
-  },
-  {
-    value: "boy anime",
-    label: "Boy Anime",
-  },
-];
+
+function capitalize(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+}
+
+function convertValueToLabel(value) {
+  const tokens = value.split(' ');
+
+  return tokens.map(token => {
+    return capitalize(token);
+  }).join(' ');
+}
 
 function Upload() {
   const [afile, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [fileDataURL1, setFileDataURL1] = useState(null);
   const [category, setCategory] = useState([]);
   const [text, setText] = useState("");
   const [alternativeFile, setAlternativeFile] = useState(null);
-  //const [categoryOption,setCategoryOption]=useState([]);
+  const [categoryOption,setCategoryOption]=useState([]);
   const [selectValue, setSelectValue] = useState(null);
   const name = useState("");
+
+  useEffect(() => {
+    (async() => {
+      const data = await getCategoryValues();
+
+      setCategoryOption(data.name.map(name => {
+        return {
+          value: name,
+          label: convertValueToLabel(name),
+        }
+      }))
+    })();
+  }, [getCategoryValues]);
+
+
 
   const resizeFile = (afile) =>
     new Promise((resolve) => {
@@ -47,20 +59,11 @@ function Upload() {
         (uri) => {
           resolve(uri);
         },
-        "base64"
+        "file"
       );
     });
 
   const changeHandler = async (e) => {
-    // const afile = e.target.files[0];
-    // const image = resizeFile(afile);
-    // if (!afile.type.match(imageMimeType)) {
-    //   alert("Image mime type is not valid");
-    //   return;
-    // }
-    // setFile(afile);
-    // setAlternativeFile(image);
-
     const fileo = e.target.files[0];
     setFile(fileo);
     const image = await resizeFile(fileo);
@@ -122,9 +125,9 @@ function Upload() {
     );
     formData.append("description", text);
 
-    alternativeForm.append("file", { uri: alternativeFile });
+    alternativeForm.append("file", alternativeFile);
 
-    alternativeForm.append("fileName", { uri: alternativeFile.name });
+    alternativeForm.append("fileName", alternativeFile.name);
 
     alternativeForm.append(
       "category",
@@ -136,11 +139,13 @@ function Upload() {
     try {
       const response = await axios.post("upload/", formData);
       const response1 = await axios.post("upload/", alternativeForm);
+      const alter = await axios.post("alternative/add",response.id,response1.id);
     } catch (error) {
       console.log(error);
     }
     toast.dark("Upload success");
     window.location.reload(false);
+
   };
 
   const imageStyles = { maxWidth: "10rem", maxHeight: "10rem" };
@@ -214,4 +219,3 @@ function Upload() {
   );
 }
 export default Upload;
-

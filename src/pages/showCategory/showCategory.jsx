@@ -18,7 +18,7 @@ import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
 import NavbarWibu from "../../components/NavbarWibu";
 import FooterWibu from "../../components/FooterWibu";
-import { readCategoriesApi } from "../../services/imageServices";
+import { getCategoryValues } from "../../services/imageServices";
 function ShowCategory() {
   // const textData = ["Tile 1", "Title 2", "Title 3", "Ttile 4"];
   // const linkI = [
@@ -42,7 +42,7 @@ function ShowCategory() {
   const [linkI, setImg] = useState([]);
   const [initLoad, setInitLoad] = useState([]);
   async function fetchData() {
-    let data = await readCategoriesApi();
+    let data = await getCategoryValues();
     console.log(data);
     setTextData(data.name);
     setImg(data.id);
