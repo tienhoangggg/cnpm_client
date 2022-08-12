@@ -9,6 +9,28 @@ import getCookie from "../../hooks/getCookie";
 import removeCookie from "../../hooks/removeCookie";
 import NavbarWibu from '../../components/NavbarWibu';
 import FooterWibu from '../../components/FooterWibu';
+
+// Use div and class for this
+// ABOUT WIBU WALLPAPER PAGE
+
+// What is Wibu Wallpaper?
+// Wibu Wallpaper is a photo sharing tool in the form of social networks, posting and classifying as emotional photos. Users create and manage photo collections by different themes, such as by events, prefer... Users can view other people's collections, "Like" photos if they like, "Star" photos you want to store, and "Report" but the photo negatively affects the community of participants.
+
+// With the images on Wibu Wallpaper, you will always find ideas to inspire. As you discover your favorite photos, save them with "Star" to keep your ideas organized and easy to find. You can also post photos or, more broadly, a collection to share ideas with others on Wibu Wallpaper.
+
+
+// Discover ideas!
+// Use the search bar to discover ideas, people, and trends by keywords. Explore recommended themes or search for your own.
+
+
+// Like, Save, Share and Report
+// Under each photo, there will be a "Like" icon so you can express your feelings to the photo in the most direct way. "Star" a lovely star-shaped icon used to save "star" photos in your eyes. Share the photos you like with the link. This "Report" is a tool to punish the images that bring negativity to the members of this common house.
+
+
+// Collection
+// You can create your own collection of topics, or we will combine photos with similar topics to create the best possible collection
+
+
 function AboutPage() {
     return (
         <>
