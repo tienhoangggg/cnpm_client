@@ -47,11 +47,10 @@ function Profile() {
   //     return <div>loading...</div>
   // }
   //console.log(testArr);
-    // if (loading) {
+  // if (loading) {
   //     return <div>loading...</div>
   // }
   //console.log(testArr);
-
 
   const [testArr, setTestArray] = useState([]);
   async function testF() {
@@ -133,7 +132,7 @@ function Profile() {
                 {getCookie("imgArr")
                   .split(",")
                   .map((linkT, index) => (
-                    <a href={url + { linkT }} key={index}>
+                    <a href={url + linkT} key={index}>
                       <div>
                         <img
                           src={
