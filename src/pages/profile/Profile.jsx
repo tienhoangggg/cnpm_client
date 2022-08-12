@@ -16,6 +16,7 @@ function Profile() {
   //console.log(typeof(parseInt(usrID, 10)));
   //console.log(usrID);
   //let data = await handleGetProfileApi({usrID})
+  //let data=test
   let url = `${window.location.origin.toString()}/showImage/`;
 
   //Delay

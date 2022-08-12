@@ -112,7 +112,7 @@ function Upload() {
     if (!checkCate()) {
       return;
     }
-
+    toast.dark("Uploading, please wait...");
     const formData = new FormData();
     const alternativeForm = new FormData();
     formData.append("file", afile);
