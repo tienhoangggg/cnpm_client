@@ -35,12 +35,16 @@ function ShowCategory() {
   // ];
   let url = `${window.location.origin.toString()}/showimageforcategory/`;
   const [fakeImg, setFake] = useState([
-    "1fipnVaWn4BMMRry8CAmWgtmRXC2ltO7q",
+    "1oypnjE-ewRLdBpXUpCAqOv2LJtnn_tMo",
     "1SGLs3sys1jpxuOlwWYbJw-Dgd93jNJjv",
     "1TAso8UAO-mrXRi7CLNpo8gKbTRkVdZ2o",
     "1NKOgbzaWDoErzZ4pdDtL5bwkT-X5RBC3",
     "1e7tzVJ9N8lllMXNPhvwX1GxxJpDRHoxs",
     "1pCBHAAyNPKnHVBqyPxXHNfxjyRmTSa6s",
+    "1K8WHBYRS-u-R5QjuJixy2Ej4XWD_MrAz",
+    "1AeoUYZOfqu0yoadEESk1CKGlwlHn0b9K",
+    "1vbmOybQYp9k1Q-WXQTRCphW0LmEFjnKr",
+    "1sWL77fF7ma3d9iaPCXhyj2vyrsuG4fPA",
   ]);
   const [textData, setTextData] = useState([]);
   const [linkI, setImg] = useState([]);
