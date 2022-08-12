@@ -6,7 +6,9 @@ import Select from "react-select";
 import Resizer from "react-image-file-resizer";
 import NavbarWibu from "../../components/NavbarWibu";
 import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { addAlter } from "../../services/imageServices";
 import { getCategoryValues } from '../../services/imageServices';
 const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
@@ -31,7 +33,7 @@ function Upload() {
   const [categoryOption,setCategoryOption]=useState([]);
   const [selectValue, setSelectValue] = useState(null);
   const name = useState("");
-
+  let navigate = useNavigate();
   useEffect(() => {
     (async() => {
       const data = await getCategoryValues();
@@ -139,14 +141,22 @@ function Upload() {
     try {
       const response = await axios.post("upload/", formData);
       const response1 = await axios.post("upload/", alternativeForm);
-      
-      const alter = await axios.post("alternative/add",response.fileId ,response1.fileId);
-      const alter1 = await axios.post("alternative/add",response1.fileId ,response.fileId);
+      console.log(response.fileId);
+      console.log(response1.fileId);
+      addAlter(response.fileId,response1.fileId);
+      addAlter(response1.fileId,response.fileId);
+      //const alter = await axios.post("alternative/add",response.fileId ,response1.fileId);
+     // console.log(alter)
+      //const alter1 = await axios.post("alternative/add",response1.fileId ,response.fileId);
     } catch (error) {
       console.log(error);
     }
+
     toast.dark("Upload success");
-    window.location.reload(false);
+
+    setFile(null);
+    
+    
 
   };
 

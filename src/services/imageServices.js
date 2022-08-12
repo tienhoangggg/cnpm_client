@@ -48,7 +48,7 @@ const reportImg = (idImage) =>{
 }
 const deleteImg = (fileId) =>{
     console.log(fileId);
-    return axios.post('delete', {"fileId": fileId})
+    return axios.post('delete', {"fileId": fileId});
 }
 const getStared=()=>{
     return axios.post('star')
@@ -56,9 +56,14 @@ const getStared=()=>{
 const checkLikeStar=(idImage)=>{
     return axios.post('image/check', {"idImage": idImage})
 }
+
+const addAlter=(idImage1,idImage2)=>{
+    return axios.post('alternative/add',{"idImageRoot":idImage1,"idImageAlter":idImage2})
+}
+
 const getAlternative=(idImageRoot)=>{
     console.log(idImageRoot);
     // console.log("wut");
     return axios.post('alternative/get', {"idImageRoot": idImageRoot})
 }
-export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, getCategoryValues, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative}
+export { showImageApi, getRandomImageApi,uploadImage,sendComment,likeImage,starImage, getCategoryValues, searchApi, getCate, getDataImg, reportImg, deleteImg, getStared, checkLikeStar, dislikeImage, disstarImage, getAlternative,addAlter}
