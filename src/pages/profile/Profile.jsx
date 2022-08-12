@@ -48,6 +48,11 @@ function Profile() {
   //     return <div>loading...</div>
   // }
   //console.log(testArr);
+    // if (loading) {
+  //     return <div>loading...</div>
+  // }
+  //console.log(testArr);
+
 
   const [testArr, setTestArray] = useState([]);
   async function testF() {

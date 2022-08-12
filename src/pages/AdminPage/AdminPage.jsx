@@ -47,7 +47,7 @@ function AdminPage() {
     return tempVal;
   }
   async function testF() {
-    const data = await getRandomImageApi("", "", "like", "20");
+    const data = await getRandomImageApi("", "", "like", "60");
     setimgID(data);
     console.log(data);
     //console.log(data);

@@ -23,7 +23,7 @@ h4 {
     background-color: white;
 }
 .jumbotron {
-    background-color: #430095;
+    background-color: #171741;
     color: #fff;
     padding: 5vh 2;
     font-family: Montserrat, sans-serif;
@@ -35,12 +35,12 @@ h4 {
 }
 
 .logo-small {
-    color: #c258ff;
+    color: #171741;
     font-size: 50px;
 }
 
 .logo {
-    color: #c258ff;
+    color: #171741;
     font-size: 200px;
 }
 
@@ -59,15 +59,15 @@ h4 {
 .carousel-control.right,
 .carousel-control.left {
     background-image: none;
-    color: #c258ff;
+    color: #171741;
 }
 
 .carousel-indicators li {
-    border-color: #c258ff;
+    border-color: #171741;
 }
 
 .carousel-indicators li.active {
-    background-color: #c258ff;
+    background-color: #171741;
 }
 .row{
     color: black;
@@ -85,7 +85,7 @@ h4 {
 }
 
 .panel {
-    border: 1px solid #c258ff;
+    border: 1px solid #171741;
     border-radius: 0 !important;
     transition: box-shadow 0.5s;
 }
@@ -95,14 +95,14 @@ h4 {
 }
 
 .panel-footer .btn:hover {
-    border: 1px solid #c258ff;
+    border: 1px solid #171741;
     background-color: #fff !important;
-    color: #c258ff;
+    color: #171741;
 }
 
 .panel-heading {
     color: #fff !important;
-    background-color: #c258ff !important;
+    background-color: #171741 !important;
     padding: 25px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 0px;
@@ -126,7 +126,7 @@ h4 {
 
 .panel-footer .btn {
     margin: 15px 0;
-    background-color: #c258ff;
+    background-color: #171741;
     color: #fff;
 }
 
@@ -134,7 +134,7 @@ h4 {
 footer .glyphicon {
     font-size: 20px;
     margin-bottom: 20px;
-    color: #c258ff;
+    color: #171741;
 }
 
 .slideanim {
